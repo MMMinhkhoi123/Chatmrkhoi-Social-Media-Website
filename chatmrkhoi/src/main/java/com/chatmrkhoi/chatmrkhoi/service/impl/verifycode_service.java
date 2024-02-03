@@ -40,16 +40,15 @@ public class verifycode_service implements verifycode_inter {
 		    date.setMinutes(date.getMinutes() + 5);
 			verifycode_entity data = verifycode_entity
 					.builder()
-					.code(String.valueOf(random))
-					.time(date.getTime())
-					.gmail(gmail)
+						.code(String.valueOf(random))
+						.time(date.getTime())
+						.gmail(gmail)
 					.build();
 			Optional<verifycode_entity> nim = verifycode_repo.findbygmail(gmail);
 			nim.ifPresent((e) -> {
 				verifycode_repo.deleteById(nim.get().getId());
 			});
 			verifycode_repo.save(data);
-			// send mess
 			sendGmail_service.Send_verify_gmail_code(String.valueOf(random), gmail);
 			
 		} else throw new Notfound_exception("Acount not exist");
@@ -75,8 +74,6 @@ public class verifycode_service implements verifycode_inter {
 	
 	@Override
 	public void chanepass(String gmail, String pass) {
-		System.out.print("Minh khoi ne");
-		// TODO Auto-generated method stub
 		Users_entity user = user_repo.findbygmail(gmail).get();
 		user.setPasswords(encoder.encode(pass));
 		user_repo.save(user);

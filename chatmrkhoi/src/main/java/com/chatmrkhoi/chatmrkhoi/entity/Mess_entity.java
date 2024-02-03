@@ -2,6 +2,7 @@ package com.chatmrkhoi.chatmrkhoi.entity;
 
 import java.util.Set;
 
+import com.chatmrkhoi.chatmrkhoi.service.Action_inter;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
@@ -20,34 +21,45 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Mess_entity extends base {
+
 	@Column
 	private boolean status;
+
 	@Column
 	private String content;
+
 	@Column
 	private Long time;
+
 	@Column
 	private String type;
+
 	@Column
 	private Long reply;
+
 	@Column
 	private String feel;
+
 	@Column
 	private String typereply;
+
 	@Column
 	private String pin;
+
 	@Column
 	private boolean start_date;
+
 	@Column
 	private String addgroup;
-	
-	
+
 	 @ManyToOne
 	    @JoinColumn(name = "group_id")
 	    Group_entity groupmess;
+
 	 @ManyToOne
 	    @JoinColumn(name = "friend_id")
-	    Friend_entity friendmess;	 
+	    Friend_entity friendmess;
+
 	 @ManyToOne
 	    @JoinColumn(name = "user_id")
 	    Users_entity usersentity;

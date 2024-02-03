@@ -10,7 +10,7 @@ import com.chatmrkhoi.chatmrkhoi.reponse.pindata_reponse;
 import com.chatmrkhoi.chatmrkhoi.request.addpin_request;
 
 public interface pin_inter {
-	public ResponseEntity<pindata_reponse> addping(addpin_request data);
-	public ResponseEntity<List<pin_reponse>> getping();
-	public ResponseEntity<pindata_reponse>  deletepin(Long pin);
+	public ResponseEntity<pindata_reponse> AddPingMessenger(addpin_request data);
+	public ResponseEntity<List<pin_reponse>> GetAllPingMessenger();
+	public ResponseEntity<pindata_reponse>  RemovePingMessenger(Long pin);
 }

@@ -19,6 +19,7 @@ public class Handle_exception{
 	
 	@ExceptionHandler({ SQLIntegrityConstraintViolationException.class })
 	public ResponseEntity<String> handleException_SignUp(SQLIntegrityConstraintViolationException e) {
+		System.out.println("hello my friend");
 		return ResponseEntity.status(500).body("Email already is used");
 	}
 	//handle timeout
@@ -32,7 +33,6 @@ public class Handle_exception{
 	public ResponseEntity<String> handleException_timetokens(Exception e) {
 		return ResponseEntity.status(401).body("Minh kHoi");
 	}
-	
 	
 	//handle timeout
 	@ExceptionHandler({Notfound_exception.class })

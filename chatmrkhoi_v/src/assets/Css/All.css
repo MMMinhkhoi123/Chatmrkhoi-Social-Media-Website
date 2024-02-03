@@ -1,0 +1,57 @@
+:root {
+    --bg_parent: #E7EBFF;
+    --color1: #bd075c;
+    --color2: #2A1B3D;
+    --color3: #44318D;
+    --color4: rgb(233, 97, 29);
+}
+body {
+    background: var(--color2);
+}
+
+#app {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+body {
+    margin: 0;
+    min-height: 100vh;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+* {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+    font-family: 'Roboto', sans-serif;
+  }
+
+
+  .skeleton {
+    position: relative;
+}
+.skeleton::before {
+    content:"";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+    background: linear-gradient(90deg , #f0eeee , #d3d0d0 , #eee);
+    background-size: 500%;
+    animation: identifierx 2s infinite linear;
+}
+
+@keyframes identifierx {
+    0% {
+        background-position: -100%;
+    }
+    100% {
+        background-position-x: 100%;
+    }
+}

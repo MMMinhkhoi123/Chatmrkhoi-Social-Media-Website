@@ -232,11 +232,12 @@ public class User_service implements User_inter {
 				.gmails(signRequest.getGmails())
 				.passwords(encoder.encode(signRequest.getPasswords()))
 				.verify(false)
-				.build();	
+				.build();
 		Optional<Users_entity> datavert = user_repo.findbygmail(signRequest.getGmails());
+
 		datavert.ifPresentOrElse((e) -> {
-			if(e.isVerify() == true) {
-				user_repo.save(data);	
+			if(e.isVerify()) {
+				user_repo.save(data);
 			} else {
 				user_repo.update_ref(data.getGmails(), data.getPasswords());
 				cakeinfo_entity info = info_repo.findbyiduser(e.getId()).get();
@@ -255,7 +256,7 @@ public class User_service implements User_inter {
 	
 	@Override
 	public boolean check_verify_token(String token) {
-		if(generation_token.checktokengmail(token) != true) {
+		if(generation_token.CheckToken(token) != true) {
 			return false;	
 		} else {
 			user_repo.update_verify(generation_token.getUsernameFromJWTverify(token));

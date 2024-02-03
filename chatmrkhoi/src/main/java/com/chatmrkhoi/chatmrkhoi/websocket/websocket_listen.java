@@ -28,22 +28,20 @@ import lombok.extern.slf4j.Slf4j;
 @Component
 @Slf4j
 public class websocket_listen {
-
-
 	@Autowired
     private SimpMessageSendingOperations messagingTemplate;
-	
 	@Autowired
 	User_repo user_repo;
 	@Autowired
 	action_repo action_repos;
-	
 	@EventListener
 	    public void handleWebSocketConnectListener(SessionConnectEvent sessionConnectEvent) {
 	        StompHeaderAccessor headerAccessor = StompHeaderAccessor.wrap(sessionConnectEvent.getMessage());
+		System.out.println(headerAccessor.getSessionId());
 	        if(headerAccessor.getLogin() != null) {
+				System.out.println("login");
 	        	if(!headerAccessor.getLogin().equalsIgnoreCase("undefined")) {
-	        	       Optional<action_entity> action = action_repos.findbyiduser(Long.valueOf(headerAccessor.getLogin()));
+					Optional<action_entity> action = action_repos.findbyiduser(Long.valueOf(headerAccessor.getLogin()));
 	   		        action.ifPresentOrElse((e) -> {
 	   			        	action.get().setSesstionid(headerAccessor.getSessionId());
 	   			        	action.get().setStatus("online");
@@ -58,7 +56,6 @@ public class websocket_listen {
 	   		        			.build();
 	   		        	action_repos.save(acEntity);
 	   		        });
-	   		        
 	   		        // send mess
 	   		        action_user useraction = new action_user();
 	   		        useraction.setId(Long.valueOf(headerAccessor.getLogin()));
@@ -73,7 +70,9 @@ public class websocket_listen {
 	@EventListener
 	    public void handleWebSocketDisconnectListener(SessionDisconnectEvent sessionDisconnectEvent) {
 	        StompHeaderAccessor headerAccessor = StompHeaderAccessor.wrap(sessionDisconnectEvent.getMessage());
-	        Optional<action_entity>  actionEnd  =  action_repos.findbyidss(headerAccessor.getSessionId());
+		System.out.println("logout");
+		System.out.println(headerAccessor.getSessionId());
+	        Optional<action_entity>  actionEnd  = action_repos.findbyidss(headerAccessor.getSessionId());
 	        actionEnd.ifPresent((e) -> {
 	        	actionEnd.get().setTimetamp(System.currentTimeMillis());
 	        	actionEnd.get().setStatus("offline");

@@ -18,10 +18,6 @@ import com.chatmrkhoi.chatmrkhoi.reponse.pin_reponse;
 import com.chatmrkhoi.chatmrkhoi.reponsitory.User_repo;
 import com.chatmrkhoi.chatmrkhoi.service.impl.User_service;
 import com.chatmrkhoi.chatmrkhoi.service.impl.pin_service;
-
-@CrossOrigin(origins = { "http://localhost:5173" }, methods = { 
-		RequestMethod.POST, RequestMethod.GET, RequestMethod.DELETE, RequestMethod.PUT
-} )
 @RestController
 @RequestMapping("/chat")
 public class chat_api {
@@ -40,7 +36,7 @@ public class chat_api {
 	
 	@GetMapping("/pin")
 	public ResponseEntity<List<pin_reponse>> getpin() {
-	  return pin_service.getping();
+	  return pin_service.GetAllPingMessenger();
 	}
 	
 	

@@ -12,6 +12,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.web.FilterInvocation;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -32,59 +33,61 @@ import jakarta.servlet.http.HttpServletResponse;
 public class filter_authen  extends OncePerRequestFilter {
 
 	
-	@Autowired
-	private generation_token generation_token;
+	@Autowired generation_token generation_token;
 	
-	@Autowired
-	Jwt_repo jwt_repo;
+	@Autowired Jwt_repo jwt_repo;
 	
-	@Autowired
-	User_repo user_repo;
-	
-//	@Qualifier("handlerExceptionResolver")
-//	private HandlerExceptionResolver resolver;
+	@Autowired User_repo user_repo;
+
 	
 	@Autowired
 	private config_userditail userditail;
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
-			throws ServletException, IOException {		
-		// check if login or signup return
-		if(checkpath(request.getServletPath()) == true) {
+			throws ServletException, IOException {
+
+		if(checkpath(request.getServletPath())) {
 			filterChain.doFilter(request, response);
 			return;
 		}
+
 		 String token = getJWTFromRequest(request);
-		 if(StringUtils.hasText(token) && generation_token.checktokengmail(token)) {
+		 if(StringUtils.hasText(token) && generation_token.CheckToken(token)) {
 			  String username = generation_token.getUsernameFromJWTverify(token);
 			  UserDetails userDetails = userditail.loadUserByUsername(username);
-	           UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(userDetails, null,null
-              ); 
-	           authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+			  UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(userDetails, null,null);
+			  authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 	           SecurityContextHolder.getContext().setAuthentication(authenticationToken); 
 	           filterChain.doFilter(request, response);
-	    }else if(StringUtils.hasText(token) && generation_token.checktokengmail(token) == false) {
-	    	  String username = generation_token.getUsernameFromJWTverify(token);
-	    	  Users_entity user = user_repo.findbygmail(username).get();
-	    	  Optional<Jwt_entity> data = jwt_repo.findbyjwt(user.getId());
-	    	  data.ifPresentOrElse((e) -> {
-	    		  if(e.getTime() > new Date().getTime()) {
-	    			  UserDetails userDetails = userditail.loadUserByUsername(username);
-		   	           UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(userDetails, null,null
-		                 ); 
-		   	           authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-		   	           SecurityContextHolder.getContext().setAuthentication(authenticationToken); 
-						try {
-							filterChain.doFilter(request, response);
-						} catch (IOException | ServletException e1) {
-							// TODO Auto-generated catch block
-							e1.printStackTrace();
-						}
-	    		  }
-	    	  }, () -> {
-	    		  throw new Notfound_exception("invaelid");
-	    	  });
-	    }
+
+	    }else if(StringUtils.hasText(token) && !generation_token.CheckToken(token)) {
+			 try {
+				 String username = generation_token.getUsernameFromJWTverify(token);
+				 Users_entity user = user_repo.findbygmail(username).get();
+				 Optional<Jwt_entity> data = jwt_repo.findbyjwt(user.getId());
+				 data.ifPresentOrElse((e) -> {
+					 if(e.getTime() > new Date().getTime()) {
+						 UserDetails userDetails = userditail.loadUserByUsername(username);
+						 UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(userDetails, null,null
+						 );
+						 authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+						 SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+                         try {
+                             filterChain.doFilter(request, response);
+                         } catch (IOException | ServletException ex) {
+                             throw new RuntimeException(ex);
+                         }
+
+                     }
+				 }, () -> {
+					 throw new Notfound_exception("invaelid");
+				 });
+			 } catch (Exception ex) {
+				 response.sendError(500);
+			 }
+	    } else {
+			 System.out.println("JWT INVALID");
+		 }
 	}
 	private String getJWTFromRequest(HttpServletRequest request) {
         String bearerToken = request.getHeader("Authorization");  
@@ -100,13 +103,14 @@ public class filter_authen  extends OncePerRequestFilter {
 		check = false;
 		String [] path = paths.split("/");
 		for(int i = 0; i< path.length ; i ++) {
-			if(path[i].equalsIgnoreCase("authen") == true ||
-					    path[i].equalsIgnoreCase("gmail") == true ||
-							 path[i].equalsIgnoreCase("get-png") == true ||
-									 path[i].equalsIgnoreCase("geturl-video") == true ||
-											 path[i].equalsIgnoreCase("filedowload") == true ||
-													 path[i].equalsIgnoreCase("filedowloadid") == true ||
-					path[i].equalsIgnoreCase("gs-guide-websocket") == true)  {
+			if(path[i].equalsIgnoreCase("authen") ||
+					    path[i].equalsIgnoreCase("gmail") ||
+							 path[i].equalsIgnoreCase("get-png") ||
+									 path[i].equalsIgnoreCase("geturl-video") ||
+											 path[i].equalsIgnoreCase("filedowload") ||
+					                              path[i].equalsIgnoreCase("login") ||
+													 path[i].equalsIgnoreCase("filedowloadid") ||
+					path[i].equalsIgnoreCase("gs-guide-websocket"))  {
 				check = true;
 			}
 		}

@@ -260,16 +260,23 @@ public mess_reponse convert_reponse(Mess_entity mess) {
     			 code = mess.getGroupmess().getCoderoom();
     			 groupid = mess.getGroupmess().getId();
     		 }
-    		
+			List<watch_reponse> watch_reponses = new ArrayList<watch_reponse>();
+			if(mess.getWatch_entities() != null) {
+				watch_reponses = convertwatch(mess.getWatch_entities());
+			}
     	  data = mess_reponse.builder().pin(mess.getPin()).time(mess.getTime())
     			  .id(mess.getId())
     			  .id_user(mess.getUsersentity()
     			  .getId()).id_group(groupid)
     			  .id_friend(id)
+				  .listwatch(watch_reponses)
     			  .room(code).build();
       }
 	return data;
-} 
+}
+
+
+
 
 public List<watch_reponse> convertwatch(Set<watch_entity> watch) {
 	List<watch_reponse> watch_reponses = new ArrayList<watch_reponse>();
@@ -304,7 +311,7 @@ public List<updatefeel_request> convertfell(Set<feel_entity> feel) {
         		 .type(e.getType())
         		 .idmess(e.getMessentity()
         		 .getId())
-        		 .iduser(e.getIduser())
+        		 .iduser(e.getIduser().getId())
         		 .build();
          x.add(datac);
 	});

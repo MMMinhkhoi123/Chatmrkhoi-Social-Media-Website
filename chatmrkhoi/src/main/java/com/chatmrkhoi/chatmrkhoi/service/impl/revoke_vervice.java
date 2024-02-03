@@ -1,5 +1,8 @@
 package com.chatmrkhoi.chatmrkhoi.service.impl;
 
+import com.chatmrkhoi.chatmrkhoi.design.Factory.AFactoryActionMess;
+import com.chatmrkhoi.chatmrkhoi.design.Factory.FactoryFeelMessenger;
+import com.chatmrkhoi.chatmrkhoi.design.Factory.FactoryRevokeMessenger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -39,10 +42,12 @@ public class revoke_vervice implements revoke_inter {
 		Users_entity user = user_repo.findbygmail(userDetails.getUsername()).get();
 		return user;
 	}
-	
 	@Override
 	public ResponseEntity<mess_reponse> addunmess(unmess_request datas) {
-		// TODO Auto-generated method stub
+		AFactoryActionMess factoryrevoke = new FactoryRevokeMessenger();
+		factoryrevoke.type = datas.getType();
+		factoryrevoke.usersEntity = user_authe();
+		factoryrevoke.messEntity = messrepo.findById(datas.getIdmess()).get();
 		revoke_entity data = revoke_entity.builder()
 				.messentity(messrepo.findById(datas.getIdmess()).get())
 				.userentity(user_repo.findById(user_authe().getId()).get())
@@ -50,8 +55,7 @@ public class revoke_vervice implements revoke_inter {
 				.build();
 		revoleRepo.save(data);
 		Mess_entity enetity = messrepo.findById(datas.getIdmess()).get();
-		mess_reponse mess = mess_service.convert_reponse(enetity);
-		return ResponseEntity.ok(mess);
+		return ResponseEntity.ok(mess_service.convert_reponse(enetity));
 	}
 
 

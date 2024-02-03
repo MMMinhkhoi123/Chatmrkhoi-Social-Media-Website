@@ -45,6 +45,9 @@ public class Users_entity extends base {
 	
 	@OneToMany(mappedBy = "userentity")
 	 Set<revoke_entity> revokeatity;
+
+	@OneToMany(mappedBy = "iduser")
+	Set<feel_entity> feelEntities;
 	 
 	@OneToMany(mappedBy = "userEntity")
 	Set<pin_entity> pinenEntities;

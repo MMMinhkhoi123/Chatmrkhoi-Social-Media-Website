@@ -8,7 +8,7 @@ import com.chatmrkhoi.chatmrkhoi.request.updatefeel_request;
 
 public interface feel_inter {
 	
-	public ResponseEntity<addfeel_reponse> add_feel(updatefeel_request data);
+	public ResponseEntity<addfeel_reponse> AddFeelMessenger(updatefeel_request data);
 	
-	public ResponseEntity<mess_reponse> delete_feel(Long idmess, String type);
+	public ResponseEntity<mess_reponse> RemoveFeelMessenger(Long idmess, String type);
 }

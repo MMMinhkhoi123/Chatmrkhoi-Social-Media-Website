@@ -38,17 +38,16 @@ public class generation_token {
 				.compact();
 		return token;
 	}
-	
-	public boolean checktokengmail(String token) {
+
+	public boolean CheckToken(String token) {
 		try {
 			Jwts.parserBuilder()
-			.setSigningKey(key)
-			.build()
-			.parseClaimsJws(token);
+					.setSigningKey(key)
+					.build()
+					.parseClaimsJws(token).getBody();
 			return true;
-		} catch (Exception ex) {
-			throw
-			new AuthenticationCredentialsNotFoundException("JWT was exprired or incorrect",ex.fillInStackTrace());
+		} catch (Exception e) {
+			return false;
 		}
 	}
 	

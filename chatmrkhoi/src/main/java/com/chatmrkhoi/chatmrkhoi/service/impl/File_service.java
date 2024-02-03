@@ -12,14 +12,13 @@ import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.chatmrkhoi.chatmrkhoi.design.Signgleton;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-
-import com.chatmrkhoi.chatmrkhoi.entity.Mess_entity;
 import com.chatmrkhoi.chatmrkhoi.entity.Users_entity;
 import com.chatmrkhoi.chatmrkhoi.entity.file_entity;
 import com.chatmrkhoi.chatmrkhoi.reponse.datadetail_response;
@@ -35,7 +34,7 @@ public class File_service implements File_inter {
 
 	@Autowired
 	file_repo file_repo;
-	
+
 	@Autowired
 	User_repo user_repo;
 	@Autowired
@@ -52,56 +51,45 @@ public class File_service implements File_inter {
 	
 	
 	// RETURN USER AUTHENCATED
-		public Users_entity user_authe() {
-			UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-			Users_entity user = user_repo.findbygmail(userDetails.getUsername()).get();
-			return user;
-		}
+	public Users_entity user_authe() {
+		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		return user_repo.findbygmail(userDetails.getUsername()).get();
+	}
 	
 	@Override
 	public ResponseEntity<file_reuqest> upload(MultipartFile fileones, String type)
-		 {		
+		 {
+			 Signgleton signgleton  = Signgleton.getInstance();
           name  = "";
-		  File file_one = new File("");
-		  Long iduser = user_authe().getId(); 
-		  
-		  String currentDirectory_img =  file_one.getAbsolutePath() + convertpath("\\target\\classes\\static\\img\\");
-		  String currentDirectory_file =  file_one.getAbsolutePath() + convertpath("\\target\\classes\\static\\file\\");
-		  String currentDirectory_video =  file_one.getAbsolutePath() + convertpath("\\target\\classes\\static\\video\\");
-		  
+		  Long iduser = user_authe().getId();
 		  Path paths  = null;
 		  if(type.equalsIgnoreCase("file")) {	  
 			  // url + iduser + key + namefileconvert
 			  String  namex =  iduser.toString() + "&3&" + fileones.getOriginalFilename();
-			       name = convertfilename(currentDirectory_file, namex);
-				   paths = Paths.get(currentDirectory_file + name);
+			       name = convertfilename(signgleton.getUrlFile(), namex);
+				   paths = Paths.get(signgleton.getUrlFile() + name);
 				 id = savefile(name, type,fileones.getSize()).getId();
 				 
 		  } else if(type.equalsIgnoreCase("video")) {
 			  String  namex =  iduser.toString() + "&3&" + fileones.getOriginalFilename();
-			  name = convertfilename(currentDirectory_video, namex);
-				 paths = Paths.get(currentDirectory_video + name);
+			  name = convertfilename(signgleton.getUrlVideo(), namex);
+				 paths = Paths.get(signgleton.getUrlVideo() + name);
 				 id = savefile(name, type, fileones.getSize()).getId();
 		  } else {
 			  String  namex =  iduser.toString() + "&3&" + fileones.getOriginalFilename();		  
-		       name = convertfilename(currentDirectory_img, namex);
-			     paths = Paths.get(currentDirectory_img + name);
+		       name = convertfilename(signgleton.getUrlImg(), namex);
+			     paths = Paths.get(signgleton.getUrlImg() + name);
 			     id = savefile(name, type, fileones.getSize()).getId();
 		  }
 		  try {
 			Files.copy(fileones.getInputStream(),paths,StandardCopyOption.REPLACE_EXISTING);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		  
-		return ResponseEntity
-				.status(200).body(file_reuqest.builder().namefile(name).type(type).id(id).build());
+		return ResponseEntity.status(200).body(file_reuqest.builder().namefile(name).type(type).id(id).build());
 	}
 	
-	
-	
-	
+
 	
 	int i;
 	public String convertfilename(String url, String name) {
@@ -113,20 +101,8 @@ public class File_service implements File_inter {
 		}
 		return   i + "&3&" + name;
 	}
-	
-	// convert url 
-	String vulue = "";
-	public String convertpath(String path) {
-		vulue = "";
-		char [] arrays = path.toCharArray();
-		for (int i = 0; i < arrays.length ; i++) {
-			if(arrays[i] == '/') {
-				vulue = vulue +  '/';
-			}
-			vulue = vulue + arrays[i];
-		}
-		return vulue;
-	}
+
+
 	
 	public InputStream getresoure(String path, String filename) {
 		String fullpath = path + File.separator + filename;
@@ -140,7 +116,6 @@ public class File_service implements File_inter {
 
 	@Override
 	public ResponseEntity<datadetail_response> data_detail(String room) {
-		// TODO Auto-generated method stub
 		List<filedetail_reponse> listimg = new ArrayList<filedetail_reponse>();
 		List<filedetail_reponse> listvideo = new ArrayList<filedetail_reponse>();
 		List<filedetail_reponse> listfile = new ArrayList<filedetail_reponse>();
@@ -186,14 +161,15 @@ public class File_service implements File_inter {
 	@Override
 	public void deletefile(String namefile, String type) {
 		 File file_one = new File("");
-		if(type.equalsIgnoreCase("img") == true || type.equalsIgnoreCase("image") == true) {
-			url  = file_one.getAbsolutePath() + convertpath("\\target\\classes\\static\\img\\");
+		Signgleton signgleton  = Signgleton.getInstance();
+		if(type.equalsIgnoreCase("img") || type.equalsIgnoreCase("image")) {
+			url  = signgleton.getUrlImg();
 		}
-		if(type.equalsIgnoreCase("video") == true) {
-			url  = file_one.getAbsolutePath() + convertpath("\\target\\classes\\static\\video\\");
+		if(type.equalsIgnoreCase("video")) {
+			url  = signgleton.getUrlVideo();
 		}
-		if(type.equalsIgnoreCase("file") == true) {
-			url  = file_one.getAbsolutePath() + convertpath("\\target\\classes\\static\\file\\");
+		if(type.equalsIgnoreCase("file")) {
+			url  = signgleton.getUrlFile();
 		}
 		Path paths = Paths.get(url + namefile);
 		try {

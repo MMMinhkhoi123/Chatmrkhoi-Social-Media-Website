@@ -348,7 +348,12 @@ public class Group_service implements Group_inter {
 				.status(false)
 				.build();
 		Mess_entity messx = mess_repo.save(mess);
-		mess_reponse messrp = mess_reponse.builder().room(code).id(messx.getId()).time(messx.getTime()).group_status(messx.getAddgroup()).build();
+		mess_reponse messrp = mess_reponse.builder()
+				.room(code).id(messx.getId())
+				.id_user(messx.getUsersentity().getId())
+				.id_group(messx.getGroupmess().getId())
+				.time(messx.getTime())
+				.group_status(messx.getAddgroup()).build();
 		return ResponseEntity.ok(messrp);
 	}
 

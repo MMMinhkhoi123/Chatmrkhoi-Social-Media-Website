@@ -1,5 +1,6 @@
 package com.chatmrkhoi.chatmrkhoi.entity;
 
+import com.chatmrkhoi.chatmrkhoi.design.Factory.IActionMessenger;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
@@ -16,10 +17,13 @@ import lombok.Setter;
 @Getter
 @Setter
 @Builder
-public class revoke_entity  extends base{
+public class revoke_entity  extends base implements IActionMessenger {
 	
 	@Column
 	private String type;
+
+	@Column
+	private  Long time;
 	
 	@ManyToOne
 	@JoinColumn(name = "mess_id")
@@ -28,5 +32,9 @@ public class revoke_entity  extends base{
 	@ManyToOne
 	@JoinColumn(name = "user_id")
 	private Users_entity userentity;
-	
+
+	@Override
+	public Mess_entity createMess() {
+		return null;
+	}
 }

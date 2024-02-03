@@ -8,6 +8,9 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Optional;
 
+import com.chatmrkhoi.chatmrkhoi.design.Signgleton;
+import com.chatmrkhoi.chatmrkhoi.entity.Users_entity;
+import com.chatmrkhoi.chatmrkhoi.reponsitory.User_repo;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
@@ -18,6 +21,8 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.MediaTypeFactory;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.util.StreamUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -41,13 +46,6 @@ import com.chatmrkhoi.chatmrkhoi.service.impl.Group_service;
 import jakarta.persistence.criteria.CriteriaBuilder.In;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-
-@CrossOrigin(origins = { "http://localhost:5173" }, methods = { 
-		RequestMethod.POST,
-		RequestMethod.GET,
-		RequestMethod.DELETE,
-		RequestMethod.PUT,
-} )
 @RestController
 @RequestMapping("/file")
 public class file_api {
@@ -57,17 +55,17 @@ public class file_api {
 	
 	@Autowired
 	file_repo file_repo;
+
 	@Autowired
 	Group_service group_service;
-	
+	@Autowired
+	User_repo user_repo;
 	@PostMapping("/upload")
 	public ResponseEntity<file_reuqest> upload(
-			@RequestParam(name = "file") Optional<MultipartFile> file, 
+			@RequestParam(name = "file") Optional<MultipartFile> file,
 			@RequestParam(name = "type") Optional<String> type) throws IOException {
 	   return file_service.upload(file.get(), type.get());
 	}
-	
-	
 		
 	@PostMapping("/upload-group")
 	public ResponseEntity<get_group_reponse> uploadgroup(
@@ -81,58 +79,40 @@ public class file_api {
 		update_img_request data = update_img_request.builder().file(files).id(id.get()).name(name.get()).build();
 		return group_service.updateimggroup(data);
 	}
-	
-	
+
+
 	@GetMapping(value = "/get-png/{imgname}", produces = MediaType.IMAGE_PNG_VALUE)
-	public @ResponseBody byte[] getpng ( @PathVariable("imgname") Optional<String> name) throws IOException {
+	public @ResponseBody byte[] GetImage( @PathVariable("imgname") Optional<String> name) throws IOException {
 	      return getClass().getResourceAsStream("/static/img/"+ name.get()).readAllBytes();
 	}
-	
-	
-    @GetMapping( value = "/geturl-file/{imgname}", produces = MediaType.ALL_VALUE)
-	private void imguploadfile(HttpServletResponse response, @PathVariable("imgname") Optional<String> name) throws IOException {
-		  File files = new File("");
-	      String currentDirectory = files.getAbsolutePath() + file_service.convertpath("\\src\\main\\resources\\static\\file\\");
-		 InputStream resoures = file_service.getresoure(currentDirectory , name.get());
-		 response.setContentType(MediaType.IMAGE_JPEG_VALUE);
-		 StreamUtils.copy(resoures, response.getOutputStream());
-		 resoures.close();
+
+	@GetMapping(value = "/geturl-video/{imgname}", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
+	public  @ResponseBody byte[] DownLoadVideo(@PathVariable("imgname") Optional<String> name) throws IOException {
+		Signgleton signgleton = Signgleton.getInstance();
+		return Files.readAllBytes(Paths.get(signgleton.getUrlVideo() + name.get()));
+	}
+	@GetMapping(value = "/filedowloadid/{name}", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
+	public  ResponseEntity<byte[]> DownLoadImage(@PathVariable("name") Optional<String> name) throws IOException {
+		Signgleton signgleton = Signgleton.getInstance();
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+		String [] namearray = name.get().split(  "&3&");
+		String nameread = namearray[namearray.length -1];
+		headers.setContentDisposition(ContentDisposition.attachment().filename(nameread).build());
+		byte[] contents = Files.readAllBytes(Paths.get(signgleton.getUrlImg() + name.get()));
+		return  ResponseEntity.status(200).headers(headers).body(contents);
 	}
 
-
-	@GetMapping(value = "/geturl-video/{imgname}")
-	public  ResponseEntity<Resource> getvideo(@PathVariable("imgname") Optional<String> name) throws IOException {
-		 File files = new File("");
-	      String currentDirectory = files.getAbsolutePath() + file_service.convertpath("\\target\\classes\\static\\video\\");
-	 	 byte[] contents = Files.readAllBytes(Paths.get(currentDirectory + name.get()));
-		return ResponseEntity.ok().contentType(MediaType.APPLICATION_OCTET_STREAM).body(new ByteArrayResource(contents));
-	}
-	
-
-	@GetMapping(value = "/filedowloadid/{id}", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE )
-	public ResponseEntity<byte[]> dowloasd(@PathVariable("id") Optional<Long> id) throws IOException {
-		 file_entity filx =  file_repo.findById(id.get()).get();
-		 File files = new File("");
-		   HttpHeaders headers = new HttpHeaders();
-	        headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
-	        headers.setContentDisposition(ContentDisposition.attachment().filename(filx.getNamefile()).build());
-	      String currentDirectory = files.getAbsolutePath() + file_service.convertpath("\\target\\classes\\static\\img\\");
-		 byte[] contents = Files.readAllBytes(Paths.get(currentDirectory + filx.getNamefile()));
+	@GetMapping(value = "/filedowload/{namefile}")
+	public ResponseEntity<byte[]> DownLoadFile(@PathVariable("namefile") Optional<String> name) throws IOException {
+		Signgleton signgleton = Signgleton.getInstance();
+		 HttpHeaders headers = new HttpHeaders();
+		 headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+		 String [] namearray = name.get().split(  "&3&");
+		 String nameread = namearray[namearray.length -1];
+		 headers.setContentDisposition(ContentDisposition.attachment().filename(nameread).build());
+		 byte[] contents = Files.readAllBytes(Paths.get(signgleton.getUrlFile() + name.get()));
 		return ResponseEntity.status(200).headers(headers).body(contents);
 	}
-	
-	
-	@GetMapping(value = "/filedowload/{namefile}", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE )
-	public ResponseEntity<byte[]> dowload(@PathVariable("namefile") Optional<String> name) throws IOException {
-		 File files = new File("");
-		   HttpHeaders headers = new HttpHeaders();
-	        headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
-	        headers.setContentDisposition(ContentDisposition.attachment().filename(name.get()).build());
-	      String currentDirectory = files.getAbsolutePath() + file_service.convertpath("\\target\\classes\\static\\file\\");
-		 byte[] contents = Files.readAllBytes(Paths.get(currentDirectory + name.get()));
-		return ResponseEntity.status(200).headers(headers).body(contents);
-	}
-	
-	
 
 }

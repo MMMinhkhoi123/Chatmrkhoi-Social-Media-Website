@@ -8,6 +8,9 @@ import org.springframework.data.repository.query.Param;
 import com.chatmrkhoi.chatmrkhoi.entity.pin_entity;
 
 import jakarta.transaction.Transactional;
+
+import java.util.Optional;
+
 public interface pin_repo extends JpaRepository<pin_entity, Long> {
 
 
@@ -15,6 +18,8 @@ public interface pin_repo extends JpaRepository<pin_entity, Long> {
 	@Transactional
 	@Query(value = "DELETE FROM pin_entity WHERE mess_id = :id", nativeQuery = true)
 	public void deletepinall(@Param(value = "id") Long id);
+
+
 	
 	
 }

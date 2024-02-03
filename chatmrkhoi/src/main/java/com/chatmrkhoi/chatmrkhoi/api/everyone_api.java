@@ -16,27 +16,19 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.chatmrkhoi.chatmrkhoi.reponse.array_connect_reponse;
 import com.chatmrkhoi.chatmrkhoi.reponse.getfriend_reponse;
-import com.chatmrkhoi.chatmrkhoi.request.Friend_request;
 import com.chatmrkhoi.chatmrkhoi.request.destroy_request;
 
 import com.chatmrkhoi.chatmrkhoi.service.impl.Friend_service;
 import com.chatmrkhoi.chatmrkhoi.service.impl.User_service;
-
-@CrossOrigin(origins = { "http://localhost:5173" }, methods = { 
-		RequestMethod.POST, RequestMethod.GET, RequestMethod.DELETE, RequestMethod.PUT
-} )
 @RestController
 @RequestMapping("/everyone")
 public class everyone_api {
 
-	
 	@Autowired
 	User_service user_service;
-	
+
 	@Autowired
 	Friend_service friend_service;
-	
-	
 	@GetMapping("/list-not-friend")
 	public ResponseEntity<List<getfriend_reponse>> list_not_friend() {
 		return user_service.list_not_friend();

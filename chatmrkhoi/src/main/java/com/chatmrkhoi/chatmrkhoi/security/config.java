@@ -1,19 +1,31 @@
 package com.chatmrkhoi.chatmrkhoi.security;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
+import com.chatmrkhoi.chatmrkhoi.security.OAuth2.CustomerOAthe2userServer;
+import com.chatmrkhoi.chatmrkhoi.security.OAuth2.OAuthen2HandlerSuccess;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.mapping.GrantedAuthoritiesMapper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.core.oidc.OidcIdToken;
+import org.springframework.security.oauth2.core.oidc.OidcUserInfo;
+import org.springframework.security.oauth2.core.oidc.user.OidcUserAuthority;
+import org.springframework.security.oauth2.core.user.OAuth2UserAuthority;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.access.AccessDeniedHandler;
+import org.springframework.security.web.access.channel.ChannelProcessingFilter;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.authentication.logout.CookieClearingLogoutHandler;
 import org.springframework.security.web.authentication.logout.LogoutFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
@@ -25,26 +37,6 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 @EnableWebSecurity
 @EnableWebMvc
 public class config {
-
-//	@Bean
-//	CorsConfigurationSource configurationSource() {
-//		List<String> methods = new ArrayList<String>();
-//		methods.add("GET");
-//		methods.add("POST");
-//		methods.add("DELETE");
-//		methods.add("PUT");
-//		List<String> Origins = new ArrayList<String>();
-//		Origins.add("http://localhost:5173");
-//		CorsConfiguration configuration = new CorsConfiguration();
-//		configuration.setAllowedMethods(methods);
-//		configuration.setAllowedOrigins(Origins);
-//		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-//		source.registerCorsConfiguration("/**", configuration);
-//		return source;
-//	}
-	
-	
-	
 	
 	@Bean
 	public PasswordEncoder passwordEncoder() {
@@ -53,25 +45,25 @@ public class config {
 	
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-		http
-		.csrf((csrf) -> csrf.disable());
+		http.csrf(AbstractHttpConfigurer::disable);
 		http.cors((e) -> e.setBuilder(http));
-
-		http.oauth2Login((e) ->
-				e.authorizationEndpoint(
-						x -> x.baseUri("/login/oauth2/authorization"))
-						.failureUrl("/authen/signingoole")
-
+		http.oauth2Login((e) -> e.userInfoEndpoint(c -> c.userService(oAthe2userServer))
+						.successHandler(oAuthen2HandlerSuccess)
+		).logout(logout ->
+				logout.logoutUrl("/logout")
+						.invalidateHttpSession(true)
+						.clearAuthentication(true)
+						.deleteCookies("JSESSIONID")
+						.logoutSuccessUrl("/logoutsuccess")
 		);
 
-//		http.cors((e) -> e.configurationSource(configurationSource()) );
 		http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
 		return http.build();
 	}
-	
+
 	@Bean
 	public AuthenticationManager authenticationManager(
-	            AuthenticationConfiguration authenticationConfiguration) throws Exception {
+			AuthenticationConfiguration authenticationConfiguration) throws Exception {
 	        return authenticationConfiguration.getAuthenticationManager();
 	 }
 	@Bean
@@ -83,5 +75,12 @@ public class config {
     public jw_authenexception authenexeipton() {
         return new jw_authenexception();
     }
-	
+
+
+	@Autowired
+	private CustomerOAthe2userServer oAthe2userServer;
+
+	@Autowired
+	private OAuthen2HandlerSuccess oAuthen2HandlerSuccess;
+
 }

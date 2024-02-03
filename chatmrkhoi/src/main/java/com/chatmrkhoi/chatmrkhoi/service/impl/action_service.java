@@ -16,8 +16,7 @@ public class action_service implements Action_inter {
 
 	@Autowired
 	action_repo action_repo;
-	
-	
+
 	@Override
 	public ResponseEntity< List<action_user>> getalls() {
 		// TODO Auto-generated method stub

@@ -63,10 +63,6 @@ import com.chatmrkhoi.chatmrkhoi.service.impl.watch_service;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
-
-@CrossOrigin(origins = { "http://localhost:5173" }, methods = { 
-		RequestMethod.POST, RequestMethod.GET, RequestMethod.DELETE, RequestMethod.PUT
-} )
 @RestController
 @RequestMapping("/user")
 public class user_api {
@@ -171,11 +167,11 @@ public class user_api {
 	
 	@PostMapping("/feel")
 	public ResponseEntity<addfeel_reponse> addfeel(@RequestBody Optional<updatefeel_request> data) {
-	  return feel_service.add_feel(data.get());
+	  return feel_service.AddFeelMessenger(data.get());
 	}
 	@DeleteMapping("/feel/{id}/{type}")
 	public ResponseEntity<mess_reponse> deletefeel(@PathVariable("id") Optional<Long> id,@PathVariable("type") Optional<String> type) {
-	  return feel_service.delete_feel(id.get(), type.get());
+	  return feel_service.RemoveFeelMessenger(id.get(), type.get());
 	}
 	
 	@PostMapping("/unmess")
@@ -185,13 +181,13 @@ public class user_api {
 	
 	@PostMapping("/pin")
 	public ResponseEntity<pindata_reponse> addpin(@RequestBody Optional<addpin_request> data) {
-	  return pin_service.addping(data.get());
+	  return pin_service.AddPingMessenger(data.get());
 	}
 	
 	
 	@DeleteMapping("/pin-del/{id}")
 	public ResponseEntity<pindata_reponse> getpin(@PathVariable("id") Optional<Long> id) {
-	  return pin_service.deletepin(id.get());
+	  return pin_service.RemovePingMessenger(id.get());
 	}
 	
 

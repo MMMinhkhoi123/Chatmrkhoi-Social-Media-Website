@@ -1,6 +1,7 @@
 <script setup>
 import { computed, ref } from "vue";
 import { useRouter } from "vue-router";
+
 const router = useRouter();
 const opendropdown = ref(false);
 
@@ -37,7 +38,7 @@ function GoSingIn() {
             <div class="header__logo">
                 <img class="header__logo--img" src="../../assets/images/logo.png">
                 <Strong id="header__logo--text">
-                    Chatmrkhoi
+                    Chatmrkhoi 
                 </Strong>
             </div>
 

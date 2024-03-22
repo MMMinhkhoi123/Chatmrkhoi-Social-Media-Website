@@ -99,10 +99,13 @@ export default () => {
             listwatch: [],
         });
 
+        console.log(Number(id_obtans.value))
+
            // set status 
         if(route.query.id != null) {
             dataxx.status = "friend";         
         }
+        
         store.dispatch("chat/sendmess", dataxx)
         const mm = setInterval((x) => {
             if(store.state.chat.data_after_send != null) {
@@ -110,6 +113,7 @@ export default () => {
                 clearInterval(mm)
             }
         }, 200)
+        store.dispatch("chat/notifyMess", dataxx)
 
 
         store.state.chat.array_img = [];
@@ -133,7 +137,6 @@ export default () => {
         store.state.chat.array_fileupload = store.state.chat.array_fileupload.filter((e, index) => index  != value)
         store.state.chat.array_img = store.state.chat.array_img.filter((e, index) => index  != value)
     }
-
     /// upload file 
     const uploadfiles = (event) => {
         let files = event.target.files[0];

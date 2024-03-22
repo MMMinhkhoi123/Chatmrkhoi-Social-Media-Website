@@ -5,12 +5,12 @@ import menuCPN from "../../components/MainCPN/Routerview/EveryoneCPN/MenuSelect.
 import NotifiCPN from "../../components/ComomCPN/Notification/Unfriendfl_warning.vue";
 import store from "../../store/index"
 
-    // CALL APPLICATION DATA SERVER 
-    store.dispatch("everyone/get_send_friend_request", localStorage.getItem("token"));
-    store.dispatch("everyone/get_friend_request", localStorage.getItem("token"));
-    store.dispatch("everyone/get_not_friend",  localStorage.getItem("token"));
-    store.dispatch("everyone/get_friend", localStorage.getItem("token"));
+    store.dispatch("everyone/get_data_initial_friend",{key :"FRIEND", token: localStorage.getItem("token")})
+    store.dispatch("everyone/get_data_initial_friendrequest", {key:"FRIEND_REQUEST",  token: localStorage.getItem("token")});
+    store.dispatch("everyone/get_data_initial_notfriend", {key:"NOT_FRIEND", token: localStorage.getItem("token")});
+    store.dispatch("everyone/get_data_initial_sendfriendrequest", {key:"SEND_FRIEND_REQUEST",  token: localStorage.getItem("token") });
     store.dispatch("chat/get_all_action", localStorage.getItem("token"));
+    store.dispatch("everyone/get_data_sug_friend",localStorage.getItem("token"));
 
 </script>
 <template>

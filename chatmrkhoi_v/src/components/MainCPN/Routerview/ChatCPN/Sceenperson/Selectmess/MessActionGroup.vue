@@ -16,7 +16,7 @@
     }
 </script>
 <template>
-        <div class="action__group" v-if="item.group_status != null">
+        <div class="action__group" v-if="item.group_status != null && item != null">
             <strong>
                 {{convert_group_status(item.group_status) == "kick" 
                 ? $t("TextMain.Chat.Screen.Mess.KickPerson", { user: nameuser(item), usernew: nameuserkick(item)  }) 

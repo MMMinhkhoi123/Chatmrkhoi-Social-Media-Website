@@ -40,7 +40,6 @@ const convert_array = (array) => {
     </div>
 
 
-
     <div  class="row__watch"  :class="item.id_user == authen.id ? 'myshowtimegroup' : 'yourshowtimegroup'" v-if="
         $route.query.idgroup != null &&
         item.start == false &&

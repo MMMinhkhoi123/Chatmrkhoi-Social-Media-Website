@@ -206,7 +206,9 @@ const module_mess = {
         },
         set_add_person(state, valua) {
             state.data_after_addperson = valua;
+            // Them nguoi dung vao danh sach nguoi dung nhom
             state.array_groupid.push(valua.getfriend_reponse);
+            // Them tin nhan moi
             state.array_all_mess.push(valua.mess_reponse);
         },
         set_kick_person(state, valua) {
@@ -223,7 +225,7 @@ const module_mess = {
     actions: {
 
         async get_all_mess({ commit }, data) {
-            await api.get("/user/messall",{
+            await api.get("/mess-center/messall",{
                 headers: {
                     Authorization: "Bearer " + data
                 }
@@ -235,7 +237,7 @@ const module_mess = {
         },
 
         async get_all_action({ commit }, data) {
-            await api.get("/user/actionall", {
+            await api.get("/action-center/actionall", {
                 headers: {
                     Authorization: "Bearer " + data
                 }
@@ -247,7 +249,7 @@ const module_mess = {
         },
 
         async sendmess({ commit }, data) {
-            await api.post("/user/sendmess", data, {
+            await api.post("/mess-center/sendmess", data, {
                 headers: {Authorization: "Bearer " + localStorage.getItem("token")}
             }).then((e) => {
                 commit("set_data_after_send", e.data)
@@ -256,9 +258,14 @@ const module_mess = {
                 console.log(err)
             })
         },
+        async notifyMess({ commit }, data) {
+            await api.post("/mess-center/notifymess", data, {
+                headers: {Authorization: "Bearer " + localStorage.getItem("token")}
+            });
+        },
 
         async movemess({ commit }, data) {
-            await api.post("/user/move", data,{
+            await api.post("/mess-center/move", data,{
                 headers: {Authorization: "Bearer " + localStorage.getItem("token")}
             }).then((e) => {
                 const data = [];
@@ -275,7 +282,7 @@ const module_mess = {
           for (var key in data) {
               form.append(key, data[key])
             }
-          await api.postForm("/file/upload", form, {
+          await api.postForm("/file-center/upload", form, {
             headers: {Authorization: "Bearer " + localStorage.getItem("token")}
         }).then((e) => {
             commit("setarrayfile", e.data.id);
@@ -290,7 +297,7 @@ const module_mess = {
         for (var key in data) {
             form.append(key, data[key])
         }
-        await api.postForm("/file/upload", form, {
+        await api.postForm("/file-center/upload", form, {
             headers: {Authorization: "Bearer " + localStorage.getItem("token")}
         }).then((e) => {
             console.log(e.data);
@@ -301,7 +308,7 @@ const module_mess = {
     },
 
     async update_profile({ state, commit }, data) {
-        await api.put("/user/profile", data, {
+        await api.put("/user-center/profile", data, {
             headers: {Authorization: "Bearer " + localStorage.getItem("token")}
         }).then((e) => {
             store.state.auth.authen = e.data;
@@ -313,7 +320,7 @@ const module_mess = {
 
 
     async upload_profile({ state }, data) {
-        await api.post("/user/update-info", data, {
+        await api.post("/info-center/update-info", data, {
             headers: {Authorization: "Bearer " + localStorage.getItem("token")}
         }).then((e) => {
             state.data_uploadx = 1;
@@ -328,7 +335,7 @@ const module_mess = {
     },
 
     async get_data_detail({ commit }, code) {
-        await api.get("/user/data-detail/" + code,{
+        await api.get("/file-center/data-detail/" + code,{
             headers: {Authorization: "Bearer " + localStorage.getItem("token")}
         }).then((e) => {
             commit('setdata_detail', e.data);
@@ -336,7 +343,7 @@ const module_mess = {
     },
 
     async get_data_detail_zoom({ commit }, code) {
-        await api.get("/user/data-detail-zoom/" + code, {
+        await api.get("/file-center/data-detail-zoom/" + code, {
             headers: {Authorization: "Bearer " + localStorage.getItem("token")}
         }).then((e) => {
             commit("set_data_detail_zoom", e.data);
@@ -348,7 +355,7 @@ const module_mess = {
         for (var key in data) {
             form.append(key, data[key])
           }
-        await api.postForm("/file/upload-group", form, {
+        await api.postForm("/group-center/upload-group", form, {
             headers: {Authorization: "Bearer " + localStorage.getItem("token")}
         }).then((e) => {
             commit("set_update_namegroup", e.data)
@@ -362,7 +369,7 @@ const module_mess = {
         for (var key in data) {
             form.append(key, data[key])
           }
-        await api.postForm("/file/upload", form, {
+        await api.postForm("/file-center/upload", form, {
             headers: {Authorization: "Bearer " + localStorage.getItem("token")}
         }).then((e) => {
             commit("set_data_group", e.data);
@@ -372,7 +379,7 @@ const module_mess = {
     },
 
     async get_groupid({ commit }, id) {
-        await api.get("/user/groupid/" + id, {
+        await api.get("/user-center/groupid/" + id, {
             headers: {Authorization: "Bearer " + localStorage.getItem("token")}
         }).then((e) => {
            commit("set_group_id",e.data);
@@ -389,7 +396,7 @@ const module_mess = {
 
 
       async addfeel({ commit }, data) {
-        await api.post("/user/feel", data, {
+        await api.post("/feel-center/feel", data, {
             headers: {Authorization: "Bearer " + localStorage.getItem("token")}
         }).then((e) => {
             commit("set_data_after_update_feel", e.data)
@@ -399,7 +406,7 @@ const module_mess = {
       },
 
       async addwatch({ commit }, data) {
-        await api.post("/user/watch", data,{
+        await api.post("/watch-center/watch", data,{
             headers: {Authorization: "Bearer " + localStorage.getItem("token")}
         }).then((e) => {
             commit("set_data_after_update", e.data)
@@ -409,7 +416,7 @@ const module_mess = {
       },
 
       async deletefeel({ commit }, data) {
-        await api.delete("/user/feel/" + data.id  + "/" + data.type,{
+        await api.delete("/feel-center/feel/" + data.id  + "/" + data.type,{
             headers: {Authorization: "Bearer " + localStorage.getItem("token")}
         }).then((e) => {
             commit("set_data_after_update", e.data)
@@ -419,7 +426,7 @@ const module_mess = {
       },
 
       async addgroup({ commit }, data) {
-        await api.post("/user/group", data,{
+        await api.post("/group-center/group", data,{
             headers: {Authorization: "Bearer " + localStorage.getItem("token")}
         }).then((e) => {
             commit("set_array_connect_after", e.data);
@@ -430,7 +437,7 @@ const module_mess = {
 
 
       async delete_group({ commit }, data) {
-        await api.delete("/user/group/" + data, {
+        await api.delete("/group-center/group/" + data, {
             headers: {Authorization: "Bearer " + localStorage.getItem("token")}
         }).then((e) => {
         }).catch(() => {
@@ -440,7 +447,7 @@ const module_mess = {
 
       async out_group({ commit }, data) {
         console.log(data.code);
-        await api.post("/user/out-group/" + data.id + "/" + data.code,{}, {
+        await api.post("/group-center/out-group/" + data.id + "/" + data.code,{}, {
             headers: {Authorization: "Bearer " + localStorage.getItem("token")}
         }).then((e) => {
             const array = [];
@@ -454,7 +461,7 @@ const module_mess = {
 
 
       async add_person_group({ commit }, data) {
-        await api.post("/user/group-person", data, {
+        await api.post("/group-center/group-person", data, {
             headers: {Authorization: "Bearer " + localStorage.getItem("token")}
         }).then((e) => {
            commit("set_add_person", e.data);
@@ -463,8 +470,11 @@ const module_mess = {
         })
       },
 
+
+
+
       async kick_person_group({ commit }, data) {
-        await api.post("/user/group-person-kich", data,{
+        await api.post("/group-center/group-person-kich", data,{
             headers: {Authorization: "Bearer " + localStorage.getItem("token")}
         }).then((e) => {
             commit("set_kick_person", e.data);
@@ -473,8 +483,12 @@ const module_mess = {
         })
       },
 
+
+
+
       async update_namegroup({ commit }, data) {
-        await api.put("/user/group-name", data,{
+        console.log(data);
+        await api.put("/group-center/group-name", data, {
             headers: {Authorization: "Bearer " + localStorage.getItem("token")}
         }).then((e) => {
            commit("set_update_namegroup", e.data)
@@ -484,7 +498,7 @@ const module_mess = {
       },
 
       async get_array_connect({ commit }, data) {
-            await api.get("/chat/array-connect", {
+            await api.get("/user-center/array-connect", {
                 headers: {
                     Authorization: "Bearer " + data
                 }
@@ -496,7 +510,7 @@ const module_mess = {
         },
 
     async get_mygroup({ commit },data) {
-        await api.get("/user/mygroup", {
+        await api.get("/group-center/mygroup", {
             headers: {
                 Authorization: "Bearer " + data
             }
@@ -509,7 +523,7 @@ const module_mess = {
 
     
     async unmess({ commit }, data) {
-        await api.post("/user/unmess", data,{
+        await api.post("/revoke-center/unmess", data,{
             headers: {Authorization: "Bearer " + localStorage.getItem("token")}
         }).then((e) => {
             commit("set_data_after_update", e.data)
@@ -530,7 +544,7 @@ const module_mess = {
     },
 
     async pin({ commit }, data) {
-        await api.post("/user/pin", data, {
+        await api.post("/pin-center/pin", data, {
             headers: {Authorization: "Bearer " + localStorage.getItem("token")}
         }).then((e) => {
             const x = [];
@@ -543,7 +557,7 @@ const module_mess = {
     },
 
     async getpin({ commit }, data) {
-        await api.get("/chat/pin", {
+        await api.get("/pin-center/pin", {
             headers: {
                 Authorization: "Bearer " + data
             }
@@ -554,9 +568,16 @@ const module_mess = {
         })
     },
 
+    async updatenotify({ commit },data) {
+        await api.get("/info-center/change-notify/" + data, {
+            headers: {
+                Authorization: "Bearer " +  localStorage.getItem("token")
+            }
+        })
+    },
 
     async unpin({ commit }, id) {
-        await api.delete("/user/pin-del/" + id, {
+        await api.delete("/pin-center/pin-del/" + id, {
             headers: {Authorization: "Bearer " + localStorage.getItem("token")}
         }).then((e) => {
             const x = [];
@@ -566,6 +587,7 @@ const module_mess = {
             console.log(err)
         })
     },
+    
     }
   }
 export default module_mess;

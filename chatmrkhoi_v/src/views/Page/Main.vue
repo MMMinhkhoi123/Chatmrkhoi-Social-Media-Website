@@ -28,6 +28,7 @@ import stom from "../../socket/common";
         store.state.chat.array_connect != null ? (clearInterval(f) ,connect_private()): null;
     }, 1000)
 
+
 </script>
 <template>
     <div class="main">

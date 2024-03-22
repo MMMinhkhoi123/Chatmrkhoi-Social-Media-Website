@@ -37,11 +37,14 @@ const check_incudes_group = (id) => {
     }); 
     return x;
 }
+
+
 const addgroup = (id, romuser) => {
     store.state.chat.data_after_addperson = null;
     const data = {
         idfriend: id,
         id: Number(localStorage.getItem("iddetail")),
+        roomuser: romuser
     }
 
     var connet = null;
@@ -53,8 +56,8 @@ const addgroup = (id, romuser) => {
         }
     })
 
-        // update connect
-        store.state.chat.array_connect.forEach((e, index) => {
+    // update connect
+    store.state.chat.array_connect.forEach((e, index) => {
         if(e.idgroup ==  Number(localStorage.getItem("iddetail"))) {
             store.state.chat.array_connect[index].coderoom = localStorage.getItem("data-select") + "&" + id;
             connet = store.state.chat.array_connect[index];
@@ -64,18 +67,19 @@ const addgroup = (id, romuser) => {
     // update mess old
     store.state.chat.array_all_mess.forEach((e, index) => {
         if(e.id_group ==  Number(localStorage.getItem("iddetail"))) {
-            store.state.chat.array_all_mess[index].room = localStorage.getItem("data-select") + "&" + id;
+           store.state.chat.array_all_mess[index].room = localStorage.getItem("data-select") + "&" + id;
         }
     })
+    // post server
+    store.dispatch("chat/add_person_group", data).then((e) => {  
+          // my new connect
+    const xcode = localStorage.getItem("data-select") + "&" + id;
 
-    store.dispatch("chat/add_person_group", data).then((e) => {
-        
-        // my new connect
-        const xcode = localStorage.getItem("data-select") + "&" + id;
 
-        const x = setInterval(() => {
+    const x = setInterval(() => {
             if(store.state.chat.data_after_addperson != null) {
                 clearInterval(x);
+
                 const data_mate = {
                     statusgroup: authen.value.id,
                     idgroup: Number(localStorage.getItem("iddetail")),
@@ -104,6 +108,9 @@ const addgroup = (id, romuser) => {
         })
     })
 }
+
+
+
 </script>
 <template>
     <div class="background" @click="$store.state.avaible_chat.open_addperson = false">

@@ -1,5 +1,5 @@
 package com.chatmrkhoi.chatmrkhoi;
-import com.chatmrkhoi.chatmrkhoi.design.Signgleton;
+import com.chatmrkhoi.chatmrkhoi.design.Signleton.Signleton;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -12,7 +12,7 @@ public class ChatmrkhoiApplication implements CommandLineRunner {
 	}
 	@Override
 	public void run(String... args) throws Exception {
-		Signgleton signgleton = Signgleton.getInstance();
-		System.out.println(signgleton.getUrlFile());
+		System.out.println("Ứng dụng đã khởi chạy");
+		System.out.println(Signleton.getInstance().getUrlFile());
 	}
 }

@@ -12,6 +12,7 @@ import NotifiCPN from "../../components/ComomCPN/Notification/delete_group.vue";
 
             <!-- LIST GROUP  -->
             <groups></groups>
+            
         </div>
     </div>
 

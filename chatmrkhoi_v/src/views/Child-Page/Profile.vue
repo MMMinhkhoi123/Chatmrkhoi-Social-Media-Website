@@ -1,9 +1,9 @@
 <script setup>
 import data from "../../handle/Screen_chat/index";
  import socket from "../../socket/common.js";
- import listprofiel from "../../components/MainCPN/Routerview/ProfileCPN/Listfriend.vue";
- import ProfileTop from  "../../components/MainCPN/Routerview/ProfileCPN/ProfileTop.vue";
- import ProfileBottom from  "../../components/MainCPN/Routerview/ProfileCPN/ProfileBottom.vue";
+ import listprofileCPN from "../../components/MainCPN/Routerview/ProfileCPN/Listfriend.vue";
+ import ProfileTopCPN from  "../../components/MainCPN/Routerview/ProfileCPN/ProfileTop.vue";
+ import ProfileBottomCPN from  "../../components/MainCPN/Routerview/ProfileCPN/ProfileBottom.vue";
  import NotifiCPN from "../../components/ComomCPN/Notification/Unfriendfl_warning.vue";
  const { authen } = data();
  socket()
@@ -15,22 +15,24 @@ import data from "../../handle/Screen_chat/index";
             <div class="profile__action--left">
 
                 <!-- profile top -->
-                <ProfileTop />
+                <ProfileTopCPN />
 
                 <!-- profile bottom -->
-                <ProfileBottom />
+                <ProfileBottomCPN />
 
             </div>
             <div class="profile__action--right">
 
                 <!-- list other profile -->
-                <listprofiel />
+                <listprofileCPN />
             </div>
         </div>
     </div>
 
+    <!-- NOTIFICATION  -->
+    <NotifiCPN />
 
-    <NotifiCPN></NotifiCPN>
+    
 </template> 
 <style scoped>
 .profile {

@@ -79,6 +79,7 @@ export default {
                             data: store.state.chat.mess_after_kick,
                         }
                       connect_private(data_reset ,rom);
+
                       localStorage.setItem("data-select", codenw)
                     }
                 }, 1000)

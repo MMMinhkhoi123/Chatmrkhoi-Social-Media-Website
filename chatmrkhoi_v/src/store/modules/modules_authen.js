@@ -27,7 +27,7 @@ const module_authen = {
     actions: {
         // REGISTER ACOUNT
         async SignUp ({ state }) {
-             await api.post("/authen/SignUp", state.user, {}).then((e) => {
+             await api.post("/account/register", state.user, {}).then((e) => {
               state.verify = false;
             }).catch(e => {
                 state.verify = true;
@@ -42,7 +42,7 @@ const module_authen = {
                 gmail: state.user.gmails,
                 password: state.user.passwords
             }
-            await api.post("/authen/SignIn", data, {}).then((e) => {
+            await api.post("/account/login", data, {}).then((e) => {
                 localStorage.clear()
                 localStorage.setItem("token",e.data.token);
                 localStorage.setItem("select-menu", 1)
@@ -60,7 +60,7 @@ const module_authen = {
         
         // VERIFY ACOUNT
         async verify ({ state }) {
-            await api.post("/authen/verify_gmail?gmail=" + localStorage.getItem("verify_gmail")).then((e) => {
+            await api.post("/account/verify_gmail?gmail=" + localStorage.getItem("verify_gmail")).then((e) => {
                 if(e.data == 'verify') {
                     state.verify = true;
                 }
@@ -69,7 +69,7 @@ const module_authen = {
 
         // VERIFY CODE ACOUNT
         async verify_code ({ state }, data) {
-            await api.post("/authen/verify_code?gmail=" + data).then((e) => {
+            await api.post("/account/verify_code?gmail=" + data).then((e) => {
                 localStorage.setItem("gmailverify", data);
             }).catch((e) => {
                 store.state.avaible_chat.open_loader = false;
@@ -79,7 +79,7 @@ const module_authen = {
         
        // GET STATUS VERIFY ACOUNT
         async verify_code_check ({ state }, data) {
-            await api.post("/authen/verify_code_check?gmail=" + data.email + "&&code="+ data.code ).then((e) => {
+            await api.post("/account/verify_code_check?gmail=" + data.email + "&&code="+ data.code ).then((e) => {
                 localStorage.setItem("gmailverify", data.email);
                 localStorage.setItem("nameverify", e.data);
             }).catch((e) => {
@@ -95,7 +95,7 @@ const module_authen = {
         
         // CHANGE PASSWORD ACOUNT
         async change_pass ({ state }, data) {
-            await api.post("/authen/change_pass?gmail=" + data.email + "&&code=" + data.passnew, {}, {
+            await api.post("/account/change_pass?gmail=" + data.email + "&&code=" + data.passnew, {}, {
                 headers: {Authorization: "Bearer " + data }
             } ).then((e) => {
                  const data = {
@@ -114,12 +114,12 @@ const module_authen = {
         
         //  VERIFY ACOUNT
         async verify_send ({ state }) {
-            await api.post("/authen/verify_gmail_send?gmail=" + localStorage.getItem("verify_gmail"));
+            await api.post("/account/verify_gmail_send?gmail=" + localStorage.getItem("verify_gmail"));
         },
 
         // GET INFOMATION USER AUTHENTICATION FROM JWT
         async authen({ commit }, data) {
-            await api.post("/user/jwt",{}, {
+            await api.post("/user-center/jwt",{}, {
                headers: {Authorization: "Bearer " + data }
             }).then((e) => {
                 console.log(e.data);

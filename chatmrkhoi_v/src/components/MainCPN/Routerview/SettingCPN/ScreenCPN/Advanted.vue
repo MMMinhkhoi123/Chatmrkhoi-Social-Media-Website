@@ -1,6 +1,8 @@
 <script setup>
 import { computed, ref } from "vue";
-
+import common from "../../../../../handle/Common/index";
+import store from "../../../../../store";
+const { authen} = common();
 const opendropdown = ref(false);
 const datachonse = computed(() => {
     if(opendropdown.value != opendropdown.value) {};
@@ -10,6 +12,13 @@ function setlanguage(value) {
     localStorage.setItem("language",value);
     opendropdown.value != opendropdown.value;
 }
+function ChangeNotify() {
+        setTimeout(() => {
+            store.dispatch("chat/updatenotify",document.querySelector(".notify__checkbox").checked);
+            authen.value.notify = !authen.value.notify;
+        }, 500); 
+}
+
 </script>
 <template>
     <div class="advanted">
@@ -30,7 +39,14 @@ function setlanguage(value) {
                 </div>
             </div>
         </div>
-        <div class="advanted__theme">
+        <div class="advanted__notify">
+            <h3 class="advanted__notify--title">Thông báo tin nhắn khi ngoại tuyến</h3>
+            <label class="advanted__notify--checkbox">
+                <input @click.self="ChangeNotify()" class="notify__checkbox" type="checkbox" :checked="authen.notify">
+                <div class="notify__frame">
+                    <span class="notify__frame--icon"></span>
+                </div>
+            </label>
         </div>
     </div>
 </template>
@@ -64,5 +80,32 @@ function setlanguage(value) {
 .language__choice--img {
     width: 40px;
     height: 40px;
+}
+.notify__frame{
+    display: block;
+    width: 60px;
+    background: gray;
+    display: flex;
+    border-radius: 20px;
+}
+.notify__frame--icon {
+    display: block;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background: rgb(34, 33, 33);
+    margin-right: auto;
+    transition: 0.3s;
+}
+.advanted__notify--checkbox > input {
+    display: none;
+}
+.advanted__notify--checkbox > input:checked ~ .notify__frame {
+  background: rgb(211, 214, 210);
+}
+.advanted__notify--checkbox > input:checked ~ div > .notify__frame--icon {
+    background: rgb(121, 209, 92);
+    margin-left: auto !important;
+    margin-right: 0 !important;
 }
 </style>

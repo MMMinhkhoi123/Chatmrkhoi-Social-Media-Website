@@ -2,22 +2,24 @@
 import handle from "../../../../handle/Everyone/index";
 import imgCPN from "../../../../components/NewCPN/imgtake.vue"
 import store from '../../../../store';
+import datas from "../../../../handle/Screen_chat/index";
 import { useRouter } from "vue-router";
+    const { data_profile } = datas();
     store.state.avaible_chat.open_notifi = false;
     const {
-        showalert,
-         data,
-         addfriend, 
-         destroy,
-         url,
-         destroy_agree,
-         agree,
+         AddFriend, 
+         AcceptFriend,
+         DestroyRequest,
+         RefuseFriend,
          DeleteFriend,
-         CheckAgree,
-         CheckDisagree,
-         CheckUnFriend,
+         CheckAcceptFriend,
+         CheckRefuseFriend,
+         CheckDestroyRequest,
          CheckAddFriend,
-         Goprofile,
+         showalert,
+         data,
+         url,
+         GoProfile,
     } = handle();
     const router = useRouter();
 
@@ -25,29 +27,29 @@ import { useRouter } from "vue-router";
 </script>
 <template>
 
-    <div v-if="data" class="list">
-        <div class="list__item" v-for="item in data" :key="item" @click.self="Goprofile(item.id)">
-            
+    <div v-if="data.length > 0" class="list">
+        <div class="list__item" v-for="item in data" :key="item" @click.self="GoProfile(item.id)">
             <!-- OPTION SELECT -->
             <div class="list__item--setting">
                 
                 <!-- ADD FRIEND -->
-                <span class="item__select"  v-if="CheckAddFriend(item)" @click="addfriend(item.id)">
+                <span class="item__select"   v-if="CheckAddFriend(item)" @click="AddFriend(item.id)">
                   <img class="item__select--img" src="../../../../assets/icon/add-user.png">
                 </span>
 
                 <!-- UNFRIEND  -->
-                <span class="item__select" v-if="CheckUnFriend(item)" @click="destroy(item.id)">
+                <span class="item__select" v-if="CheckDestroyRequest(item)" @click="DestroyRequest(item.id)">
                     <img class="item__select--img" src="../../../../assets/icon/un-user.png">
                 </span>
 
                 <!-- REFUSE -->
-                <span  class="item__select" v-if="CheckDisagree(item)"  @click="destroy_agree(item.id)"> 
+                <span  class="item__select" v-if="CheckRefuseFriend(item)"  @click="RefuseFriend(item.id)"> 
+                    
                     <img class="item__select--img" src="../../../../assets/icon/delete_user.png">
                 </span>
 
                 <!-- AGREE -->
-                <span  class="item__select"  v-if="CheckAgree(item)"  @click="agree(item.id)">
+                <span  class="item__select"  v-if="CheckAcceptFriend(item)"  @click="AcceptFriend(item.id)">
                     <img class="item__select--img" src="../../../../assets/icon/add-user-friend.png">
                 </span>
 
@@ -57,10 +59,17 @@ import { useRouter } from "vue-router";
                 </span>
             </div>
 
+            <div class="list__item--mutual" v-if="$store.state.everyone.chose == 5 "> Mutual friends {{item.sugg == null ? 0 : item.sugg.length }}
+              <ul v-if="item" class="item__list">
+                 <li v-for="items in item.sugg" :key="items" class="item__list--item">
+                  {{  data_profile(items).fullname }}
+                </li>
+              </ul>
+            </div>
             <!-- INFO USER -->
-            <div v-once class="list__item--infomation">
+            <div class="list__item--infomation">
                 <span class="item__text">
-                    {{ item.fullname }}
+                    {{  item.fullname }}
                 </span>
                 <img  class="item__img" v-if="item.type_img !='rs'" :src="url + '/file/get-png/' + item.images">
                 <imgCPN class="item__img" :name="item.images" v-if="item.type_img == 'rs'" />
@@ -78,13 +87,38 @@ import { useRouter } from "vue-router";
 
     <!-- ICON EMPTY DATA  -->
     <div class="empty" v-if="data.length == 0">
-        <img class="empty__img" src="../../../../assets/icon/folder.png" alt="">
+       <img class="empty__img" src="../../../../assets/icon/folder.png" alt="">
     </div>
 
 
 
 </template>
 <style scoped>
+.list__item--mutual {
+    position: relative;
+    font-weight: 700;
+}
+.list__item--mutual:hover > .item__list {
+    display: block !important;
+}
+.item__list {
+    min-height: 150px;
+    overflow-y: scroll;
+    list-style-type: none;
+    position: absolute;
+    top: 100%;
+    background: var(--color1);
+    color: white;
+    margin: 0;
+    padding: 0;
+    display: none;
+    padding: 10px;
+    z-index: 11;
+}
+.item__list > li {
+    padding: 5px;
+    text-align: center;
+}
 .list {
     padding: 0px 100px;
     padding-top: 10px;

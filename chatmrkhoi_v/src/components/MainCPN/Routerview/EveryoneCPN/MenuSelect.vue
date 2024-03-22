@@ -1,48 +1,73 @@
 <template>
     <div class="menu">
-            <div class="menu__select" :class="$store.state.everyone.chose == 1 ? 'active': ''"
-            @click="$store.state.everyone.chose = 1">
-                <span class="menu__select--text">
-                    <font-awesome-icon :icon="['fas', 'user-plus']" />
-                    {{  $t('TextMain.Everyone.Menu.ItemAddFriend')  }}
+
+        <!-- FIND USER -->
+        <div class="menu__select" :class="$store.state.everyone.chose == 1 ? 'active': ''"
+        @click="setupMenu(1)">
+            <span class="menu__select--text">
+                <font-awesome-icon :icon="['fas', 'user-plus']" />
+                {{  $t('TextMain.Everyone.Menu.ItemAddFriend')  }}
+            </span>
+        </div>
+
+        <!-- LIST USER SEND REQUEST -->
+        <div class="menu__select" :class="$store.state.everyone.chose == 2 ? 'active': ''"
+        @click="setupMenu(2)">
+            <span class="menu__select--text">
+                <font-awesome-icon :icon="['fas', 'user-plus']" />
+                {{  $t('TextMain.Everyone.Menu.ItemSendRequest')  }}
+            </span>
+            <span  class="menu__select--count"  v-if="$store.state.everyone.array_send_request_friend"> 
+                {{  $store.state.everyone.array_send_request_friend.length }}
+            </span>
+        </div>
+
+        <!-- LIST USER REQUID FRIEND -->
+        <div class="menu__select" :class="$store.state.everyone.chose == 3 ? 'active': ''"
+        @click="setupMenu(3)">
+            <span class="menu__select--text">
+                <font-awesome-icon :icon="['fas', 'person-circle-question']" />
+                {{  $t('TextMain.Everyone.Menu.ItemFriendRequest')  }}
                 </span>
-            </div>
-            <div class="menu__select" :class="$store.state.everyone.chose == 2 ? 'active': ''"
-            @click="$store.state.everyone.chose = 2">
-                <span class="menu__select--text">
-                    <font-awesome-icon :icon="['fas', 'user-plus']" />
-                    {{  $t('TextMain.Everyone.Menu.ItemSendRequest')  }}
-                </span>
-                <span  class="menu__select--count"  v-if="$store.state.everyone.array_send_request_friend"> 
-                    {{  $store.state.everyone.array_send_request_friend.length }}
-                </span>
-            </div>
-            <div class="menu__select" :class="$store.state.everyone.chose == 3 ? 'active': ''"
-            @click="$store.state.everyone.chose = 3">
-                <span class="menu__select--text">
-                    <font-awesome-icon :icon="['fas', 'person-circle-question']" />
-                    {{  $t('TextMain.Everyone.Menu.ItemFriendRequest')  }}
-                 </span>
-                <span class="menu__select--count" v-if="$store.state.everyone.array_request_friend" >
-                    {{ $store.state.everyone.array_request_friend.length }}
-                </span>
-            </div>
-            <div class="menu__select" :class="$store.state.everyone.chose == 4 ? 'active': ''"
-            @click="$store.state.everyone.chose = 4">
-                <span class="menu__select--text">
-                    <font-awesome-icon :icon="['fas', 'user-group']" />
-                    {{  $t('TextMain.Everyone.Menu.ItemListFriend')  }}
-                </span>
-                <span  class="menu__select--count" v-if="$store.state.everyone.array_friend">
-                    {{ $store.state.everyone.array_friend.length }}
-                </span>
-            </div>
+            <span class="menu__select--count" v-if="$store.state.everyone.array_request_friend" >
+                {{ $store.state.everyone.array_request_friend.length }}
+            </span>
+        </div>
+
+        <!-- LIST FRIEND -->
+        <div class="menu__select" :class="$store.state.everyone.chose == 4 ? 'active': ''"
+        @click="setupMenu(4)">
+            <span class="menu__select--text">
+                <font-awesome-icon :icon="['fas', 'user-group']" />
+                {{  $t('TextMain.Everyone.Menu.ItemListFriend')  }}
+            </span>
+            <span  class="menu__select--count" v-if="$store.state.everyone.array_friend">
+                {{ $store.state.everyone.array_friend.length }}
+            </span>
+        </div>
+         <!-- LIST FRIEND -->
+         <div class="menu__select" :class="$store.state.everyone.chose == 5 ? 'active': ''"
+         @click="setupMenu(5)">
+            <span class="menu__select--text">
+                <font-awesome-icon :icon="['fas', 'user-group']" />
+                Gợi ý kết bạn
+            </span>
+        </div> 
+        
     </div>
 </template>
 <script>
+import { useRouter } from 'vue-router'
+import store from '../../../../store';
 export default {
     setup() {
-        
+       const router = useRouter();
+      function setupMenu(value) {
+         localStorage.setItem("select_menu_user", value);
+         store.state.everyone.chose = value;
+         router.go(router.currentRoute)
+      }
+      return { setupMenu }
     },
 }
 </script>

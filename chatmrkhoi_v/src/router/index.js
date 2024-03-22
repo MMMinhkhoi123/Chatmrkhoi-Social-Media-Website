@@ -10,6 +10,16 @@ const router = createRouter({
       component: () => import("../views/Page/test.vue")
     },
     {
+      path: '/linkemail/id=:id&type=:type',
+      name: 'test',
+      redirect: to => {
+        if(to.params.type == 'private') {
+          return { name: 'chat', query: { id: to.params.id } }
+        }
+        return { name: 'chat', query: { idgroup: to.params.id } }
+      },
+    },
+    {
       path: '/:pathMatch(.*)*',
       name: 'NotFound',
       component: () => import("../views/Page/Erro.vue")
@@ -96,16 +106,22 @@ function LoadData(data) {
           store.dispatch("chat/get_all_mess", data);
           store.dispatch("chat/get_all_action", data);
           store.dispatch("chat/get_emoji", data);
-          store.dispatch("everyone/get_send_friend_request", data);
-          store.dispatch("everyone/get_friend_request", data);
-          store.dispatch("everyone/get_not_friend", data);
-          store.dispatch("everyone/get_friend", data);
+
+              // CALL APPLICATION DATA SERVER 
+          store.dispatch("everyone/get_data_initial_friend",{key :"FRIEND",token: data})
+          store.dispatch("everyone/get_data_initial_friendrequest", {key:"FRIEND_REQUEST", token: data});
+          store.dispatch("everyone/get_data_initial_notfriend", {key:"NOT_FRIEND", token: data});
+          store.dispatch("everyone/get_data_initial_sendfriendrequest", {key:"SEND_FRIEND_REQUEST", token: data });
+          store.dispatch("everyone/get_data_sug_friend",data);
+          
           store.dispatch("chat/get_mygroup", data);
           store.dispatch("chat/get_array_connect", data);
           store.dispatch("chat/getpin",data);
       }
   }, 200)
 }
+
+
 
 
 //CHECK NEW USER
@@ -136,18 +152,5 @@ function CheckNew(step) {
 
 
 
-  // LOAD DATA FROM SERVER
-  function Load_Data() {
-    store.dispatch("chat/get_all_mess");
-    store.dispatch("chat/get_all_action");
-    store.dispatch("chat/get_emoji");
-    store.dispatch("everyone/get_send_friend_request");
-    store.dispatch("everyone/get_friend_request");
-    store.dispatch("everyone/get_not_friend");
-    store.dispatch("everyone/get_friend");
-    store.dispatch("chat/get_mygroup");
-    store.dispatch("chat/get_array_connect");
-    store.dispatch("chat/getpin");
-  }
 
 export default router

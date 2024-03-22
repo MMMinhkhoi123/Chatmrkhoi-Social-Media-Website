@@ -4,15 +4,16 @@ const module_everyone = {
     namespaced: true,
     state: {
         data_find: [],
-        array_not_friend: null,
-        array_friend: null,
-        array_request_friend: null,
-        array_send_request_friend: null,
-        chose: 1,
+        array_not_friend: [],
+        array_friend: [],
+        array_request_friend: [],
+        array_send_request_friend: [],
+        chose: localStorage.getItem("select_menu_user") == null ? 1 : localStorage.getItem("select_menu_user"),
         resetrom: false,
         data_after_action: null,
         keysearch: '',
         optionselect: false,
+        array_sug: [],
     },
 
     getters: {
@@ -26,10 +27,12 @@ const module_everyone = {
             return state.array_request_friend.filter((e) => e.id == value);
         },
         get_your_friend_id: (state) => (value) => {
+
             if (state.array_friend == null) {
                 return [];
             }
              const x = state.array_friend.filter((e) => e.id == value);
+
              if(x.length == 0) {
                 if(state.array_not_friend == null) {
                     return [];
@@ -44,41 +47,64 @@ const module_everyone = {
         setdatafind(state, valua) {
             state.data_find = valua;
         },
-        setarray_list_send_requestfriend(state, valua) {
-            state.array_send_request_friend = valua;
+        set_array_sendfriendrequest(state, valua) {
+            state.array_send_request_friend = valua.data;
         },
-        setarray_list_requestfriend(state, valua) {
-            state.array_request_friend = valua
+        set_array_friend(state, valua) {
+            state.array_friend = valua.data; 
         },
-        setarray_list_friend(state, valua) {
-            state.array_friend = valua; 
+        set_array_notfriend(state, valua) {
+            state.array_not_friend = valua.data; 
         },
-        setarray_not_list_friend(state, valua) {
-            state.array_not_friend = valua; 
+        set_array_friendrequest(state, valua) {
+            state.array_request_friend = valua.data;
         },
         set_data_after_action(state, valua){
             state.data_after_action = valua;
             store.state.chat.array_connect.push(valua);
+        },
+        set_data_suggest_action(state, valua) {
+            state.array_sug = valua;
         }
     },
 
     actions: {
-        // action request
-        async action_request({ commit } ,data) {
-            await api.post("/everyone/action-request", data, {
+
+          // action request
+          async unsendrequest({ commit } ,data) {
+            await api.post("/friend-center/action-request", data, {
                 headers: {Authorization: "Bearer " + localStorage.getItem("token") }
              }).then((e) => {
-                if(data.status == 'friend') {
+                console.log("unfriend success")
+            }).catch(() => {
+                console.log("unfriend fail")
+            })
+        },
+  
+
+        // define request
+        async refuse({ commit } ,data) {
+            await api.get("/friend-center/refuse-request/" + data, {
+                headers: {Authorization: "Bearer " + localStorage.getItem("token") }
+             })
+        },
+
+
+         // accept request
+         async accept({ commit } ,data) {
+            await api.get("/friend-center/accept-request/" + data, {
+                headers: {Authorization: "Bearer " + localStorage.getItem("token") }
+             }).then((e) => {
                    commit("set_data_after_action", e.data); 
-                }
             }).catch(() => {
                 console.log("that bai")
             })
         },
         
+
          // unfriend friend
         async unfriend({ commit } ,id) {
-            await api.post("/everyone/unfiend/" + id,{} ,  {
+            await api.get("/friend-center/delete-friend/" + id,{
                 headers: {Authorization: "Bearer " + localStorage.getItem("token") }
              }).then((e) => {
                 console.log("unfriend success")
@@ -90,7 +116,7 @@ const module_everyone = {
 
         // add friend
         async addfriend({ commit } ,data) {
-            await api.post("/everyone/add-request/" + data,{} ,  {
+            await api.post("/friend-center/add-request/" + data,{} ,  {
                 headers: {Authorization: "Bearer " + localStorage.getItem("token") }
              } ).then((e) => {
                 console.log("add success")
@@ -99,83 +125,85 @@ const module_everyone = {
             })
         },
 
-       // get user gmail
+
+       // get user
         async finduser({ commit } ,data) {
-            await api.get("/everyone/finduser/" + data,  {
+            await api.get("/user-center/find-user/" + data.key + "/" + data.data,  {
                 headers: {Authorization: "Bearer " + localStorage.getItem("token") }
              }).then((e) => {
-                console.log(e.data)
                 commit("setdatafind", e.data)
             }).catch(() => {
                 console.log("that bai")
             })
         },
 
+        async get_data_sug_friend({ commit }, data) {
+            await api.get("/user-center/list-suggest", {
+                headers: {
+                    Authorization: "Bearer " + data
+                }
+            }).then((e) => {
+               commit("set_data_suggest_action", e.data)
+            }).catch(() => {
+                console.log("Fail")
+            })
+        },
+
+
         
-       // get user name
-       async findusername({ commit } ,data) {
-        await api.get("/everyone/findusername/" + data,   {
-            headers: {Authorization: "Bearer " + localStorage.getItem("token") }
-         }).then((e) => {
-            console.log(e)
-            commit("setdatafind", e.data)
-        }).catch(() => {
-            console.log("that bai")
-        })
-        },
-
-
-        // get list send your request
-        async get_send_friend_request({ commit }, data) {
-            await api.get("/everyone/list-send-request", {
+        async get_data_initial_friend({ commit }, type) {
+            await api.get("/user-center/list-initial/" + type.key, {
                 headers: {
-                    Authorization: "Bearer " + data
+                    Authorization: "Bearer " + type.token
                 }
             }).then((e) => {
-                commit("setarray_list_send_requestfriend", e.data)
+
+             commit("set_array_friend", { data: e.data , type: type.key })
+                 
+                   
             }).catch(() => {
-                console.log("that bai")
+                console.log("Fail")
             })
         },
 
-        // get list your request friend 
-        async get_friend_request({ commit }, data) {
-            await api.get("/everyone/list-friend-request", {
+
+
+        async get_data_initial_notfriend({ commit }, type) {
+            await api.get("/user-center/list-initial/" + type.key, {
                 headers: {
-                    Authorization: "Bearer " + data
+                    Authorization: "Bearer " + type.token
                 }
             }).then((e) => {
-                commit("setarray_list_requestfriend", e.data)
+                commit("set_array_notfriend", { data: e.data , type: type.key })
             }).catch(() => {
-                console.log("that bai")
+                console.log("Fail")
             })
         },
 
-        // get list your friend
-        async get_friend({ commit }, data) {
-            await api.get("/everyone/list-friend", {
+        async get_data_initial_sendfriendrequest({ commit }, type) {
+            await api.get("/user-center/list-initial/" + type.key, {
                 headers: {
-                    Authorization: "Bearer " + data
+                    Authorization: "Bearer " + type.token
                 }
             }).then((e) => {
-                commit("setarray_list_friend", e.data)
+                commit("set_array_sendfriendrequest", { data: e.data , type: type.key })
             }).catch(() => {
-                console.log("that bai")
+                console.log("Fail")
             })
         },
 
-        // get list not your friend
-        async get_not_friend({ commit }, data) {
-            await api.get("/everyone/list-not-friend", {
+        async get_data_initial_friendrequest({ commit }, type) {
+            await api.get("/user-center/list-initial/" + type.key, {
                 headers: {
-                    Authorization: "Bearer " + data
+                    Authorization: "Bearer " + type.token
                 }
             }).then((e) => {
-                commit("setarray_not_list_friend", e.data)
+                commit("set_array_friendrequest", { data: e.data , type: type.key })
             }).catch(() => {
-                console.log("that bai")
+                console.log("Fail")
             })
-        } 
+        },
     }
-  }
+}
+
 export default module_everyone;

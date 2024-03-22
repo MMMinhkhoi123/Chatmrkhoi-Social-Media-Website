@@ -51,8 +51,13 @@ export default {
                 id: Number(id),
                 name: dataupdate.newname,
             }
-            if(dataupdate.file != null || data.name != props.name) {
+            if(dataupdate.file != null) {
                 store.dispatch("chat/uploadimggroup", datapost).then((e) => {
+                    store.state.avaible_chat.open_editinfo = false
+                })
+            }
+            if(data.name != props.name) {
+                store.dispatch("chat/update_namegroup", datapost).then((e) => {
                     store.state.avaible_chat.open_editinfo = false
                 })
             }

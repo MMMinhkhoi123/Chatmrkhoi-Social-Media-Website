@@ -1,7 +1,7 @@
 <template>
         <div class="top" id="header">
             <div class="left">
-                <div v-if="$route.query.id" class="option_info">
+                <div v-if="$route.query.id != null && profile_friend($route.query.id)[0] != null" class="option_info">
                     <div class="img">
                         <img class="avata" v-if="profile_friend($route.query.id)[0].type_img != 'rs'" :src="url + '/file/get-png/' + profile_friend($route.query.id)[0].images">
                         <imgx  class="avata" v-if="profile_friend($route.query.id)[0].type_img == 'rs'" :name="profile_friend($route.query.id)[0].images" ></imgx>
@@ -53,6 +53,7 @@ export default {
         }
         
         const convertTimeOffline = (id) => {
+
             const x = computed(() => {
                 if(store.state.chat.data_online) {}
                 const date = new Date();
@@ -79,17 +80,17 @@ export default {
             return x.value;
         } 
 
-
-
         return { 
             showdetail,profile_friend, get_info_group, url,check_online,convertTimeOffline
         }
     },
-    mounted() {
+    updated() {
         if(this.$route.query.id != null) {
-            this.convertTimeOffline(this.profile_friend(this.$route.query.id)[0].id);
+            if(this.profile_friend(this.$route.query.id).length > 0) {
+                this.convertTimeOffline(this.profile_friend(this.$route.query.id)[0].id);
+            }
         } 
-    }
+    },
 }
 </script>
 <style scoped>

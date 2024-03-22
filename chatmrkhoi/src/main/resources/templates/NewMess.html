@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        * {
+            font-family: sans-serif;
+            text-align: center;
+        }
+        .card {
+            width: 250px;
+            margin-left: auto;
+            margin-right: auto;
+            text-align: center;
+        }
+
+        .card__goWeb {
+            background: #7373ec;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            padding: 10px 50px;
+            margin: 10px;
+        }
+        .card__avata {
+            border-radius: 50%;
+        }
+    </style>
+</head>
+<body>
+ <div class="fragment">
+     <div class="card">
+         <div style="display: flex;">
+             <img src="https://cdn4.iconfinder.com/data/icons/objects-1-2/36/59-512.png" alt="" style="width: 100px ;height: 100px; margin-left: auto; margin-right: auto"  class="card__avata"   >
+         </div>
+         <h3 th:text="${nameFull}"></h3>
+         <p  th:if="${status == 'friend'}">Đã gửi cho bạn tin nhắn</p>
+         <span style="display: flex; align-items: center;"  th:if="${status == 'group'}">  Đã gửi cho nhóm <h4 style="margin: 0 10px; padding: 0" th:text="${nameGroup}"></h4> một tin nhắn </span>
+         <span style="color: gray; font-size: 13px" th:text="${date}" ></span>
+         <div>
+             <a th:if="${status == 'group'}" th:href="@{'http://localhost:5173/linkemail/id='+${IdGroup}+'&type=group'}">
+                 <button  class="card__goWeb">Xem tin nhắn</button>
+             </a>
+             <a th:if="${status == 'friend'}" th:href="@{'http://localhost:5173/linkemail/id='+${IdUser}+'&type=private'}">
+                 <button  class="card__goWeb">Xem tin nhắn </button>
+             </a>
+         </div>
+     </div>
+     <p th:if="${status == 'friend'}">
+         Thư này đã được gửi đến <span th:text="${email}"></span>
+     </p>
+ </div>
+
+</body>
+</html>

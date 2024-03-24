@@ -1,5 +1,7 @@
 package com.chatmrkhoi.chatmrkhoi.websocket;
 
+import com.chatmrkhoi.chatmrkhoi.design.state.ContextUser;
+import com.chatmrkhoi.chatmrkhoi.design.state.OfflineState;
 import com.chatmrkhoi.chatmrkhoi.entity.ActionEn;
 import com.chatmrkhoi.chatmrkhoi.Data.reponse.DataInfoActionUserRep;
 import com.chatmrkhoi.chatmrkhoi.repositories.IActionRepo;
@@ -15,24 +17,13 @@ import java.util.Optional;
 
 @Component
 public class DisConnectListen {
-
-
-    @Autowired SimpMessageSendingOperations messagingTemplate;
-    @Autowired IUserRepo USER_REPO;
-    @Autowired IActionRepo ACTION_REPO;
+    @Autowired OfflineState OFFLINE;
     @EventListener
     public void handleWebSocketDisconnectListener(SessionDisconnectEvent sessionDisconnectEvent) {
         StompHeaderAccessor headerAccessor = StompHeaderAccessor.wrap(sessionDisconnectEvent.getMessage());
-        Optional<ActionEn> actionEnd  = ACTION_REPO.findBySesId(headerAccessor.getSessionId());
-        actionEnd.ifPresent((e) -> {
-            actionEnd.get().setTimetamp(System.currentTimeMillis());
-            actionEnd.get().setStatus("offline");
-            ACTION_REPO.save(actionEnd.get());
-            DataInfoActionUserRep user = new DataInfoActionUserRep();
-            user.setId(e.getId_user());
-            user.setTimetamp(System.currentTimeMillis());
-            user.setStatus("offline");
-            messagingTemplate.convertAndSend("/user/action/run", user);
-        });
+        OFFLINE.setSession(headerAccessor.getSessionId());
+        ContextUser context = new ContextUser();
+        context.setState(OFFLINE);
+        context.handleStatus();
     }
 }

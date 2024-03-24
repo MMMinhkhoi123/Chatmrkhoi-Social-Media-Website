@@ -64,6 +64,7 @@ public class AccountApi {
     public CsrfToken csrf(CsrfToken csrfToken) {
         return csrfToken;
     }
+
 	@PostMapping("/verify_gmail_send")
 	public void SendEmailVerify(
 			@Param(value = "gmail") Optional<String> email) {

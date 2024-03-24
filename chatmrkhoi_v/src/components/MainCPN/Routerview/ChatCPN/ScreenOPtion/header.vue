@@ -1,6 +1,7 @@
 <template>
         <div class="top" id="header">
             <div class="left">
+            {{$store.state.chat.data_online}}
                 <div v-if="$route.query.id != null && profile_friend($route.query.id)[0] != null" class="option_info">
                     <div class="img">
                         <img class="avata" v-if="profile_friend($route.query.id)[0].type_img != 'rs'" :src="url + '/file/get-png/' + profile_friend($route.query.id)[0].images">
@@ -84,7 +85,7 @@ export default {
             showdetail,profile_friend, get_info_group, url,check_online,convertTimeOffline
         }
     },
-    updated() {
+    mounted() {
         if(this.$route.query.id != null) {
             if(this.profile_friend(this.$route.query.id).length > 0) {
                 this.convertTimeOffline(this.profile_friend(this.$route.query.id)[0].id);

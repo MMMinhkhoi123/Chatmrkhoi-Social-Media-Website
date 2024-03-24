@@ -12,6 +12,8 @@ import com.chatmrkhoi.chatmrkhoi.design.Interator.ConcreteCollection;
 import com.chatmrkhoi.chatmrkhoi.design.Interator.IConnection;
 import com.chatmrkhoi.chatmrkhoi.design.Interator.IListIterator;
 import com.chatmrkhoi.chatmrkhoi.design.Interator.UserSugIterator;
+import com.chatmrkhoi.chatmrkhoi.design.state.ContextUser;
+import com.chatmrkhoi.chatmrkhoi.design.state.OnlineState;
 import com.chatmrkhoi.chatmrkhoi.design.strategy.user.finduser.ContextFindUser;
 import com.chatmrkhoi.chatmrkhoi.design.strategy.user.finduser.FindByEmail;
 import com.chatmrkhoi.chatmrkhoi.design.strategy.user.finduser.FindByName;
@@ -162,6 +164,7 @@ public class UserSer implements IUser {
 		}
 	}
 
+
 	@Override
 	public ResponseEntity<DataLoginRep> login(DataLoginReq loginData) {
 
@@ -181,7 +184,6 @@ public class UserSer implements IUser {
 				throw new LoginException("Password incorrect", "Password");
 			}
 
-
 			Authentication author = manager.authenticate(new UsernamePasswordAuthenticationToken(loginData.getGmail(),loginData.getPassword()));
 			SecurityContextHolder.getContext().setAuthentication(author);
 
@@ -189,10 +191,8 @@ public class UserSer implements IUser {
 
 			JWT_SER.save(loginData);
 
-
 			DataRep.setToken(token);
 			DataRep.setGmail(loginData.getGmail());
-
 
 			Optional<InfoEn> DataInfo = INFO_REPO.findByIdUser(user.orElseThrow().getId());
 			DataInfo.ifPresent((e) -> {
@@ -205,9 +205,13 @@ public class UserSer implements IUser {
 			});
 		}, () -> {
 			throw new LoginException("Account not exist", "Account");
-		} );
+		});
 		return ResponseEntity.status(200).body(DataRep);
 	}
+
+
+
+
 
 	@Override
 	public ResponseEntity<DataInfoAuthenRep> getInfo(String token) {

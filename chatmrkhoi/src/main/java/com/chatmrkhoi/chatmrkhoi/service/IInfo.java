@@ -6,7 +6,7 @@ import com.chatmrkhoi.chatmrkhoi.Data.request.DataInfoReq;
 public interface IInfo {
 	void save(String name, Long idUser);
 	void update(InfoEn data);
-	void update(DataInfoReq uprequest);
-
-	boolean updateNotify(boolean status);
+	void update(DataInfoReq upRequest);
+	void updateNotify(boolean status);
+	void updateTheme(boolean status);
 }

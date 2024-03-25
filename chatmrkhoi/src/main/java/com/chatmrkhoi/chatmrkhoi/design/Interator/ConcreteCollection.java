@@ -4,7 +4,6 @@ import com.chatmrkhoi.chatmrkhoi.entity.UserEn;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -15,20 +14,20 @@ import java.util.List;
 @Service
 public class ConcreteCollection implements  IConnection {
     @Autowired private UserSugIterator logicIterator;
-    private List<UserEn> userConnection = new ArrayList<>();
+    private List<UserEn> listUserConnection = new ArrayList<>();
     @Override
-    public IListIterator CreateIterator() {
+    public IIterator CreateIterator() {
         logicIterator.setData(this);
         return logicIterator;
     }
     public  void  setListUser(List<UserEn> user) {
-        this.userConnection = user;
+        this.listUserConnection = user;
     }
 
     public  int  getSize() {
-        return  userConnection.size();
+        return  listUserConnection.size();
     }
     public  UserEn  getUser(int indexPosition) {
-        return userConnection.get(indexPosition);
+        return listUserConnection.get(indexPosition);
     }
 }

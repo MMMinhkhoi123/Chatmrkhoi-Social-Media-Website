@@ -22,4 +22,5 @@ public class DataInfoAuthenRep {
 	private String status;
 	private String type_img;
 	private boolean notify;
+	private boolean darkMode;
 }

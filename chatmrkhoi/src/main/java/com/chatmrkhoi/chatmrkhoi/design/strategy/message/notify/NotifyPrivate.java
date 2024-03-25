@@ -42,7 +42,7 @@ public class NotifyPrivate implements INotify {
         email[0]= USER_REPO.findById(data.getId_friend()).orElseThrow().getGmails();
         if (!dataAction.orElseThrow().getStatus().equalsIgnoreCase("offline"))
         {
-            ob.eventsNumber.UnSubscriber("NotifyNewMess",notifyEmail);
+          ob.eventsNumber.UnSubscriber("NotifyNewMess",notifyEmail);
         }
         else
         {

@@ -9,11 +9,7 @@ import com.chatmrkhoi.chatmrkhoi.Util.convert.UserConvert;
 import com.chatmrkhoi.chatmrkhoi.common.Common;
 import com.chatmrkhoi.chatmrkhoi.common.EUserInitial;
 import com.chatmrkhoi.chatmrkhoi.design.Interator.ConcreteCollection;
-import com.chatmrkhoi.chatmrkhoi.design.Interator.IConnection;
-import com.chatmrkhoi.chatmrkhoi.design.Interator.IListIterator;
-import com.chatmrkhoi.chatmrkhoi.design.Interator.UserSugIterator;
-import com.chatmrkhoi.chatmrkhoi.design.state.ContextUser;
-import com.chatmrkhoi.chatmrkhoi.design.state.OnlineState;
+import com.chatmrkhoi.chatmrkhoi.design.Interator.IIterator;
 import com.chatmrkhoi.chatmrkhoi.design.strategy.user.finduser.ContextFindUser;
 import com.chatmrkhoi.chatmrkhoi.design.strategy.user.finduser.FindByEmail;
 import com.chatmrkhoi.chatmrkhoi.design.strategy.user.finduser.FindByName;
@@ -92,7 +88,6 @@ public class UserSer implements IUser {
 	@Autowired ListSendFriendRequest LIST_SEND_FRIEND_REQUEST;
 
 	@Autowired ListFriendRequests LIST_FRIEND_REQUEST;
-
 
 	private final PasswordEncoder encoder = new BCryptPasswordEncoder();
 
@@ -227,11 +222,10 @@ public class UserSer implements IUser {
 				.images(InfoFindEd.getAvatars())
 				.type_img(InfoFindEd.getType_avatas())
 				.notify(InfoFindEd.isNotify())
+				.darkMode(InfoFindEd.isDarkMode())
 				.id(UserFindEd.getId()).build();
 		return ResponseEntity.status(200).body(DataRep);
 	}
-
-
 
 
 	@Override
@@ -255,7 +249,7 @@ public class UserSer implements IUser {
 	public ResponseEntity<List<DataInfoUserOtherRep>> getListSugFiend() {
 		List<DataInfoUserOtherRep> DataResult = new ArrayList<>();
 		concreteCollection.setListUser(USER_REPO.findAll());
-		IListIterator iterator = concreteCollection.CreateIterator();
+		IIterator iterator = concreteCollection.CreateIterator();
 		for (DataInfoUserOtherRep user = iterator.First(); iterator.hasNext() ; user = iterator.getNext() ) {
 			DataResult.add(user);
 		}

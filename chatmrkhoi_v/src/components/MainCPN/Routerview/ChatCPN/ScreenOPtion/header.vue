@@ -1,7 +1,6 @@
 <template>
         <div class="top" id="header">
             <div class="left">
-            {{$store.state.chat.data_online}}
                 <div v-if="$route.query.id != null && profile_friend($route.query.id)[0] != null" class="option_info">
                     <div class="img">
                         <img class="avata" v-if="profile_friend($route.query.id)[0].type_img != 'rs'" :src="url + '/file/get-png/' + profile_friend($route.query.id)[0].images">
@@ -20,15 +19,16 @@
                         : $store.state.avaible_chat.status_time }}
                         </span>
                     </div>
-                    
+                
                 </div>
                 <div v-if="$route.query.idgroup && $store.state.chat.array_mygroup" class="option_info">
                     <img class="avata" :src="url + '/file/get-png/' + ( get_info_group($route.query.idgroup).length == 0 ? null : get_info_group($route.query.idgroup)[0].img)">
                     <span class="name"> {{ ( get_info_group($route.query.idgroup).length == 0 ? null : get_info_group($route.query.idgroup)[0].name) }}</span>
                 </div>
             </div>
-            <div @click="showdetail" class="right">
-                <font-awesome-icon :icon="['fas', 'ellipsis']" />
+            <div class="right">
+                <font-awesome-icon @click="$store.state.avaible_chat.open_pin = true"  :icon="['fas', 'thumbtack']" />
+                <font-awesome-icon  @click="showdetail" :icon="['fas', 'ellipsis']" />
             </div>
         </div>
 </template>
@@ -124,7 +124,6 @@ export default {
     cursor: pointer;
 }
 .right > p {
-    color: #000;
 font-style: normal;
 font-weight: 500;
 line-height: normal;
@@ -136,7 +135,6 @@ background: rgba(28, 183, 62, 1);
 border-radius: 50%;
 }
 .name {
-    color: #000;
     font-weight: 700;
     font-style: normal;
     line-height: normal;
@@ -151,12 +149,12 @@ border-radius: 50%;
 .top {
     padding: 10px;
     position: relative;
-    background: #FFF;
+    background: var(--coloRegular);
     display: flex;
     z-index: 0;
     justify-content: space-between;
     align-items: center;
-    border-radius: 10px 10px 0 0;
+    border-radius: 5px 5px 0 0;
 }
 .option_info {
     height: 50px;

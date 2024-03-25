@@ -16,7 +16,7 @@ import java.util.List;
 @Getter
 @Setter
 @Component
-public class UserSugIterator implements IListIterator {
+public class UserSugIterator implements IIterator {
 
     @Autowired Common COMMON;
     @Autowired IFriendRepo FRIEND_REPO;
@@ -77,6 +77,7 @@ public class UserSugIterator implements IListIterator {
     public void reset() {
         currentPosition = 0;
     }
+
     public  boolean CheckUser(UserEn use, List<Long> data) {
         check = false;
         checkFriend = true;
@@ -142,7 +143,6 @@ public class UserSugIterator implements IListIterator {
                     data.add(e.getIdfriend());
                 }
             });
-
         }
         return checkFriend&&checkFriend2&&check;
     }

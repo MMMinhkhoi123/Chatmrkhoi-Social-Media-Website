@@ -108,11 +108,16 @@ public class InfoSer implements IInfo {
 	}
 
 	@Override
-	public boolean updateNotify(boolean status) {
+	public void updateNotify(boolean status) {
 		InfoEn infoUse =  INFO_REPO.findByIdUser(COMMON.getUserAuthentication().getId()).orElseThrow();
 		infoUse.setNotify(status);
 		INFO_REPO.save(infoUse);
-		return !status;
+	}
+	@Override
+	public void updateTheme(boolean status) {
+		InfoEn infoUse = INFO_REPO.findByIdUser(COMMON.getUserAuthentication().getId()).orElseThrow();
+		infoUse.setDarkMode(status);
+		INFO_REPO.save(infoUse);
 	}
 
 }

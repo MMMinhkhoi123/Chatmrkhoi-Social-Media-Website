@@ -12,7 +12,7 @@
                 </div>
 
                 <h3 id="action__text" class="action__name action__item--text">
-                    {{ authen.fullname }}
+                 {{ authen.fullname }}
                 </h3>
             </div>
 
@@ -170,7 +170,7 @@ export default {
     bottom: 0;
     right: 0;
     transition: 0.6s;
-    background: var(--color3);
+    background: var(--colorMenu);
 } 
 .menu__action--auth {
     white-space: nowrap;
@@ -182,7 +182,7 @@ export default {
     padding: 30px 0;
     padding-left: 50px;
     overflow: hidden;
-    border-bottom: 2px solid rgb(255, 255, 255);
+    border-bottom: 2px solid var(--colorLine);
  }
  .action__frame {
     display: flex;
@@ -205,7 +205,7 @@ export default {
 
 
 .action__name {
-    color: #FFF;
+    color: var(--colorTextMenu);
     font-weight: 700;
     font-size: 13px;
  }
@@ -218,7 +218,7 @@ export default {
 }
 
 .menu__action--list:not(.default) {
-    border-bottom: 2px solid rgb(255, 255, 255);
+    border-bottom: 2px solid  var(--colorLine);
     
 }
 .menu__action--list  {
@@ -236,14 +236,14 @@ export default {
     padding-left: 40px;
     border-radius: 30px;
     align-items: center;
-    color: #FFF;
+    color: var(--colorTextMenu);
     cursor: pointer;
 }
 .action__item :hover {
-    color: var(--color1);
+    color: var(--color1) !important;
 }
 .active {
-    color: var(--color1);
+    color: var(--color1) !important;
 }
 
 .action__item--icon {

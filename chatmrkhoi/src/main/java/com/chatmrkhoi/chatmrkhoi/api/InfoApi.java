@@ -20,4 +20,9 @@ public class InfoApi {
     public void updateNotify(@PathVariable(value = "status") Optional<String> data) {
         INFO_SER.updateNotify(Boolean.parseBoolean(data.orElseThrow()));
     }
+
+    @GetMapping("/change-theme/{status}")
+    public void updateTheme(@PathVariable(value = "status") Optional<String> data) {
+        INFO_SER.updateTheme(Boolean.parseBoolean(data.orElseThrow()));
+    }
 }

@@ -35,7 +35,9 @@ public class NotifyGroup implements INotify {
     public void startNotify() {
        notifyEmail.setData(data);
        CenterOb ob = new CenterOb();
+
        ob.eventsNumber.Subscriber("NotifyNewMess",notifyEmail);
+
        GroupEn groupEn = GROUP_REPO.findById(data.getId_friend()).orElseThrow();
 
        if (!Objects.equals(groupEn.getUserEntity().getId(), COMMON.getUserAuthentication().getId())) {

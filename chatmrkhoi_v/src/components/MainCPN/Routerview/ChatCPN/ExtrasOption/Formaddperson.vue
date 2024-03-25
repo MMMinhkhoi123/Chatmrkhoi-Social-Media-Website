@@ -147,11 +147,11 @@ const addgroup = (id, romuser) => {
   .background {
     position: fixed;
     inset: 0;
-    background: rgba(255, 255, 255, 0.348);
+    background: var(--colorHideFrom);
     z-index: 100;
   }
   .add {
-    background: white;
+    background: var(--coloRegular);
     border-radius: 10px;
     text-align: center;
     position: fixed;
@@ -187,9 +187,10 @@ const addgroup = (id, romuser) => {
 .add__search--input {
     width: 100%;
     padding: 20px;
-    background: whitesmoke;
+    background: var(--coloRegular);
     outline: none;
     border: none;
+    color: var(--colorText);
     padding-right: 30px;
     border-radius: 10px;
 }

@@ -13,6 +13,5 @@ public class ChatmrkhoiApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		System.out.println("Ứng dụng đã khởi chạy");
-		System.out.println(Signleton.getInstance().getUrlFile());
 	}
 }

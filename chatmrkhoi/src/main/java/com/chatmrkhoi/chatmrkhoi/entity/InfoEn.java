@@ -21,5 +21,6 @@ public class InfoEn extends Base {
 	private Long birday;
 	private String gender;
 	private String type_avatas;
+	private boolean darkMode;
 	private boolean notify;
 }

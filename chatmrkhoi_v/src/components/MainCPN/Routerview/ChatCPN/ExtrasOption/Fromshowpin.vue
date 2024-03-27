@@ -168,7 +168,7 @@ export default {
 .backgound {
   position: fixed;
   inset: 0;
-  background: rgba(203, 202, 202, 0.612);
+  background: var(--colorHideFrom);
   z-index: 100;
   filter: blur(20px);
 } 
@@ -184,7 +184,7 @@ export default {
 
 .pin {
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-  background: rgb(244, 244, 244);
+  background: var(--coloRegular);
   min-width: 750px;
   border-radius: 10px;
   text-align: center;
@@ -264,7 +264,7 @@ export default {
   align-items: center;
 }
 .list__option--menu {
-  background: white;
+  background: var(--colorBehindLess);
   padding: 5px;
   border-radius: 10px;
   width: 140px;

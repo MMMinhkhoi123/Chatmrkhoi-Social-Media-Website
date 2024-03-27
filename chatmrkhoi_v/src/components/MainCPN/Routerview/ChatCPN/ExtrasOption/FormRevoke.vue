@@ -2,13 +2,17 @@
     <div  class="bgwhite">
     </div>
     <div  class="fromrevoke">
-        <h2>Remove on your side</h2>
+        <h2>{{  $t('TextMain.Chat.Screen.From.Revoke2.Title')  }}</h2>
         <p>
-            We'll remove this message for you. Other members of the chat can still see it.
+          {{  $t('TextMain.Chat.Screen.From.Revoke2.decribe')  }}
         </p>
         <div class="option">
-            <button @click="$store.state.avaible_chat.unmess.status = null">Cancel</button>
-            <button @click="unmesschose">Delete, remove</button>
+            <button @click="$store.state.avaible_chat.unmess.status = null">
+              {{  $t('TextMain.Chat.Screen.From.Revoke2.button1')  }}
+            </button>
+            <button @click="unmesschose">
+              {{  $t('TextMain.Chat.Screen.From.Revoke2.button2')  }}
+            </button>
         </div>
     </div>
 </template>
@@ -41,12 +45,12 @@ p {
   .bgwhite {
     position: fixed;
     inset: 0;
-    background: rgba(255, 255, 255, 0.612);
+    background: var(--colorHideFrom);
     z-index: 100;
     filter: blur(20px);
   }
   .fromrevoke {
-    background: white;
+    background: var(--coloRegular);
     padding: 20px;
     border-radius: 10px;
     text-align: center;
@@ -63,24 +67,25 @@ p {
   }
   .option > button {
     border: none;
-    color: rgb(0, 0, 0);
     width: 300px;
     height: 50px;
     cursor: pointer;
     transition: 0.4s;
+    background: transparent;
+    border: 1px solid var(--colorText);
+  }
+  .option > button:nth-child(1):hover {
+    background: var(--color3);
   }
   .option > button:nth-child(2) {
-    background: white;
+    background: transparent;
     font-size: 15px;
     border: 1px solid  var(--color1);
     color: var(--color1);
-
   }
   .option > button:nth-child(2):hover {
     background: var(--color1);
     color: white;
   }
-  .option > button:nth-child(1):hover  {
-    
-  }
+  .option > button:nth-child(1):hover  { }
 </style>

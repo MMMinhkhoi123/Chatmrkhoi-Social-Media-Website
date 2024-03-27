@@ -58,7 +58,7 @@ export default {
     left: 50%;
     transform: translate(-50%,-50%);
     z-index: 11;
-    background: white;
+    background: var(--coloRegular);
     overflow: hidden;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
@@ -103,7 +103,7 @@ export default {
 .bgwhite  {
     position: fixed;
     inset: 0;
-    background: rgba(255, 255, 255, 0.552);
+    background: var(--colorHideFrom);
     z-index: 11;
 }
 

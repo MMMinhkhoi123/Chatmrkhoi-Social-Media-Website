@@ -51,4 +51,9 @@ public class UserEn extends Base {
 	 
 	@OneToMany(mappedBy = "userEntity")
 	Set<PinEn> pinenEntities;
+
+	@OneToMany(mappedBy = "userEntity")
+	Set<NoticeEn> notification;
+
+
 }

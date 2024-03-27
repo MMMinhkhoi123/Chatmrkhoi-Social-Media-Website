@@ -53,6 +53,9 @@ export default {
 </script>
 
 <style scoped>
+* {
+    color: var(--colorText);
+}
 .everyone {
     padding: 20px;
     position: relative;
@@ -63,7 +66,7 @@ export default {
     grid-template-columns: 400px 1fr;
 }
 .everyone__right {
-    background: #ffffff;
+    background: var(--coloRegular);
     border-radius: 10px;
     overflow: hidden;
 }

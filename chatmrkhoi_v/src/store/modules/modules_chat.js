@@ -568,6 +568,7 @@ const module_mess = {
         })
     },
 
+    
     async updatenotify({ commit },data) {
         await api.get("/info-center/change-notify/" + data, {
             headers: {
@@ -575,6 +576,16 @@ const module_mess = {
             }
         })
     },
+
+
+    async updatetheme({ commit },data) {
+        await api.get("/info-center/change-theme/" + data, {
+            headers: {
+                Authorization: "Bearer " +  localStorage.getItem("token")
+            }
+        })
+    },
+
 
     async unpin({ commit }, id) {
         await api.delete("/pin-center/pin-del/" + id, {

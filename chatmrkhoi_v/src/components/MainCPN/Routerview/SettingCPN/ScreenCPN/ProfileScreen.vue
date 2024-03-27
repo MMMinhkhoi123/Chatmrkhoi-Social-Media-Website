@@ -118,13 +118,13 @@ const posts = () =>  {
 .profile__avata {
     margin: 0 20px;
     padding: 20px 0;
-    border-bottom: 1px solid rgb(223, 220, 220);
+    border-bottom: 1px solid var(--colorLine);
 }
 .profile__avata--image {
     width: 80px;
     display: block;
     height: 80px;
-    border: 5px solid white;
+    border: 5px solid  var(--colorLine);
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
     border-radius: 50%;
     position: relative;
@@ -159,7 +159,7 @@ const posts = () =>  {
 .profile__infomation {
     padding: 20px 0;
     margin: 0 20px;
-    border-bottom: 1px solid rgb(223, 220, 220);
+    border-bottom: 1px solid  var(--colorLine);
 }
 .profile__infomation--item {
     display: grid;
@@ -170,7 +170,7 @@ const posts = () =>  {
 
 .infomation__input {
     padding: 12px;
-    border: 1px solid rgb(204, 204, 204);
+    border: 1px solid  gainsboro;
     outline: none;
     font-size: 13px;
     border-radius: 5px;
@@ -196,6 +196,8 @@ const posts = () =>  {
     border: 2px solid rgb(255, 255, 255);
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
+
+
 .gender__checkbox:checked ~ .gender__icon > .gender__icon--check {
     display: block !important;
 }

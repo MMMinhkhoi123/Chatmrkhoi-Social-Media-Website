@@ -285,6 +285,21 @@ const x =     {
                     audience: "Audience"
                 },
                 From : {
+                    Revoke2: {
+                        Title: "Remove on your side",
+                        decribe: "We'll remove this message for you. Other members of the chat can still see it.",
+                        button1:"Cacel",
+                        button2:"Delete, remove",
+                    },
+                    Revoke: {
+                        Title: "On whose side do you want to remove this message?",
+                        TextOption1: "Recall with everyone",
+                        decribe1:"This message will be revoked to everyone in the chat. Other people may have seen or forwarded the message. Recalled messages can still be reported.", 
+                        TextOption2: "Remove on your side",
+                        decribe2:"We'll remove this message on your side. Other people in the chat can still see it.", 
+                        button1:"Cacel",
+                        button2:"Delete, remove",
+                    },
                     watch: {
                         text: " watched at ",
                         title: " Audience "

@@ -127,8 +127,11 @@ export default {
     </div>
 </template>
 <style scoped>
+.background {
+    background: var(--colorHideFrom) !important;
+}
 .number {
-    background: white;
+    background: var(--coloRegular);
     border-radius: 10px;
     text-align: center;
     position: fixed;
@@ -140,7 +143,7 @@ export default {
     flex-direction: column;
     transform: translate(-50%, -50%);
     z-index: 111;
-    box-shadow: 0 0 19px rgba(0, 0, 0, 0.253);
+    box-shadow: 0 0 19px var(--colorshadow);
 }
 
 
@@ -176,7 +179,7 @@ export default {
 .list__left--img {
     width: 50px;
     height: 50px;
-    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    box-shadow: var(--colorshadow) 0px 3px 8px;
     border-radius: 50%;
 }
 .list__right--icon {

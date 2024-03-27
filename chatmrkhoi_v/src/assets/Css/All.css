@@ -4,6 +4,19 @@
     --color2: #2A1B3D;
     --color3: #44318D;
     --color4: rgb(233, 97, 29);
+
+    --colorHideFrom : #232222bf;
+    
+    --coloRegular: #212529;
+    --colorBehind:#15191d;
+    --colorMenu:#313b4b;
+    --colorText: white;
+    --colorBehindLess: #262626;
+    --colorshadow: #100f0f;
+    --colorLine: #6f6f6f;
+    --colorScreenChat: #3b3b3b;
+
+    --colorTextMenu: white;
 }
 body {
     background: var(--color2);
@@ -54,4 +67,20 @@ body {
     100% {
         background-position-x: 100%;
     }
+}
+
+
+@keyframes hiden {
+    0%{
+        opacity: 0;
+    }
+    80% {
+        opacity: 1;
+        transform: translateY(0%);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    
 }

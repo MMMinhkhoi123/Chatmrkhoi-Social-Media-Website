@@ -21,6 +21,9 @@ import NotifiCPN from "../../components/ComomCPN/Notification/delete_group.vue";
 
 </template>
 <style scoped>
+* {
+    color: var(--colorText);
+}
 .group {
     padding: 20px;
     position: relative;
@@ -28,7 +31,7 @@ import NotifiCPN from "../../components/ComomCPN/Notification/delete_group.vue";
     box-sizing: border-box;
 }
 .group__frame {
-    background: rgb(255, 255, 255);
+    background:var(--coloRegular);
     height: 100%;
     border-radius: 10px;
     overflow: hidden;

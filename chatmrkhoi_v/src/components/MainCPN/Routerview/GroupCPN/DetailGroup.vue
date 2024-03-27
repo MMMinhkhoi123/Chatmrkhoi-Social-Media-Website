@@ -178,8 +178,8 @@ export default {
 .detail {
     width: 100%;
     height: 100%;
-    border-radius: 10px;
-    background: white;
+    border-radius: 5px;
+    background: var(--coloRegular);
     overflow: hidden;
     position: relative;
 }
@@ -204,7 +204,6 @@ export default {
     align-items: center;
     gap: 10px;
     background:var(--color1);
-    color: white;
     padding: 5px 10px;
     border-radius: 20px;
     cursor: pointer;
@@ -236,15 +235,15 @@ export default {
 .detail__frame--bottom {
     border-radius: 10px;
     position: relative;
-    background: #F4F2F2;
+    background: var(--colorBehindLess);
 }
 .frame__select {
-    background: white;
+    background: var(--colorBehindLess);
     display: flex;
     justify-content: center;
 } 
 .frame__select--form {
-    background: rgb(227, 227, 227);
+    background: var(--colorMenu);
     border-radius: 20px;
     display: flex;
     justify-content: center;

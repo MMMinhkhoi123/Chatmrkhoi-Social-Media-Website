@@ -29,9 +29,11 @@ import { faEnvelope,
      faAngleRight,
      faPeopleGroup,
      faSliders,
-     faImages
+     faThumbTack,
+     faImages,
+     faBell
      } from '@fortawesome/free-solid-svg-icons'
-import { faSquarePlus,faBell ,faCircleXmark, faFile, faFaceSmile, faEye } from '@fortawesome/free-regular-svg-icons'
+import { faSquarePlus ,faCircleXmark, faFile, faFaceSmile, faEye } from '@fortawesome/free-regular-svg-icons'
 
 library.add({ faLocationDot,faCircleXmark, faCode,faChevronLeft,faLink,faPhone,
      faEnvelope, faSquarePlus, faFile,faEllipsis,
@@ -41,10 +43,12 @@ library.add({ faLocationDot,faCircleXmark, faCode,faChevronLeft,faLink,faPhone,
        faChevronRight,
        faCamera,
        faImages,
+       faBell,
        faChevronDown,
        faDownload,
        faEye,
        faSliders,
+       faThumbTack,
        faCaretDown,
        faVenusMars,
        faAngleRight,

@@ -293,6 +293,21 @@ const x ={
                         audience: "Người xem"
                     },
                     From : {
+                        Revoke2: {
+                            Title: "Xóa bên phía của bạn",
+                            decribe: "Chúng tôi sẽ xóa thông báo này cho bạn. Các thành viên khác của cuộc trò chuyện vẫn có thể nhìn thấy nó",
+                            button1:"Hũy bỏ",
+                            button2:"xóa , gỡ bỏ",
+                        },
+                        Revoke: {
+                            Title: "Bạn muốn xóa tin nhắn này về phía ai?",
+                            TextOption1: "Thu hồi cả hai bên",
+                            decribe1:"Tin nhắn này sẽ bị thu hồi cho mọi người trong cuộc trò chuyện. Những người khác có thể đã nhìn thấy hoặc chuyển tiếp thư. Tin nhắn bị thu hồi vẫn có thể được báo cáo.", 
+                            TextOption2: "Thu hồi bên tôi",
+                            decribe2:"Chúng tôi sẽ xóa thông báo này về phía bạn. Những người khác trong cuộc trò chuyện vẫn có thể nhìn thấy nó.", 
+                            button1:"Hủy bỏ",
+                            button2:"Xóa, gỡ bỏ",
+                        },
                         watch: {
                             text: " xem lúc ",
                             title: " người xem "

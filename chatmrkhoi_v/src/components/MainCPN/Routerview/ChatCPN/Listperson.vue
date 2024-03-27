@@ -59,6 +59,9 @@ function getnamekick(code) {
             return null;
         }
         const data = m[m.length - 1];
+        if(!get_info_friend(Number(data.group_status.split("&")[1]).length > 0)) {
+            return null;
+        }
         const name = convertname(get_info_friend(Number(data.group_status.split("&")[1]))[0].fullname);
         return name;
     })
@@ -335,7 +338,7 @@ function check_typing(code) {
     }
     70% {
       transform: translateY(1px);
-      background: rgb(140, 138, 138);
+      background: var(--colorLine)
     }
     100% {
       transform: translateY(0);
@@ -383,7 +386,7 @@ function check_typing(code) {
     padding: 5px;
     border-radius: 10px;
     margin-bottom: 5px;
-    background: white;
+    background: var(--colorBehindLess);
     display: flex;
     gap: 10px;
 }
@@ -429,18 +432,17 @@ function check_typing(code) {
 }
 .form__icon {
     font-size: 20px;
+    color: var(--colorText);
 }
 .form__input {
     width: 100%;
     padding: 17px 10px;
     padding-left: 35px;
-    background: #FFF;
+    background: var(--colorBehindLess);
     border: none;
-    color: #000;
     outline: none;
-    font-style: normal;
     font-weight: 500;
-    line-height: normal;
+    color: var(--colorText);
 }
 
 .filter__group {
@@ -468,13 +470,13 @@ function check_typing(code) {
     cursor: pointer;
     padding: 5px;
     border-radius: 10px;
-    background: #FFF;
+    background: var(--colorBehindLess);
     position: relative;
     display: flex;
     margin-bottom: 5px;
     justify-content: space-between;
     transition: 0.3s !important;
-    box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
+    box-shadow: var(--colorshadow) 0px 4px 10px 0px;
 }
 .list__item:hover {
     transform: translateY(-5px);
@@ -494,7 +496,6 @@ function check_typing(code) {
     height: 20px;
     background: var(--color1);
     border-radius: 50%;
-    color: white;
     font-weight: 700;
  }
  .item__avata {
@@ -508,8 +509,6 @@ function check_typing(code) {
  }
  span {
     display: flex;
-    background: #FFF;
-    color: #000;
     font-style: normal;
     font-weight: 500;
     line-height: normal;
@@ -533,7 +532,6 @@ function check_typing(code) {
     font-size: 15px;
  }
  .item__name--text {
-    color: #000;
     font-style: normal;
     line-height: normal;
  }

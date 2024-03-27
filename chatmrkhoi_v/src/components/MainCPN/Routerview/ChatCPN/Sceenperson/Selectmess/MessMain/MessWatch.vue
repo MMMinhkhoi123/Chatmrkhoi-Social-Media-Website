@@ -32,7 +32,7 @@ const convert_array = (array) => {
         <div  class="row__watch--user" v-for="itemm in convert_array(item.listwatch)" :key="itemm" >
             <img  class="watch__img" v-if="data_profile(itemm.id).type_img == 'rs'"  :src="'/src/assets/images/avata_org/' + data_profile(itemm.id).images" />
             <img class="watch__img" v-if="data_profile(itemm.id).type_img == 'cpt'"  :src="url_img + data_profile(itemm.id).images" />
-            <span class="watch__time">
+            <span class="watch__time" v-if="data_profile(itemm.id)">
               <div class="triangle-up"></div>
               {{ convertimewatch(itemm, $t('TextMain.Chat.Screen.Mess.watch')) }}
             </span>
@@ -48,8 +48,10 @@ const convert_array = (array) => {
         item.group_status == null">
       <!-- genegarion  -->
       <div class="row__watch--user"  v-for="itemm in convert_array(item.listwatch)" :key="itemm"  @click="($store.state.avaible_chat.open_watch = true), showwatch(item.id) " >
-        <img class="watch__img"  v-if="data_profile(itemm.id).type_img == 'rs'"  :src="'/src/assets/images/avata_org/' + data_profile(itemm.id).images"  />
-        <img  class="watch__img" v-if="data_profile(itemm.id).type_img == 'cpt'" :src="url_img + data_profile(itemm.id).images" />
+        <div v-if="data_profile(itemm.id)">
+          <img class="watch__img"  v-if="data_profile(itemm.id).type_img == 'rs'"  :src="'/src/assets/images/avata_org/' + data_profile(itemm.id).images"  />
+          <img  class="watch__img" v-if="data_profile(itemm.id).type_img == 'cpt'" :src="url_img + data_profile(itemm.id).images" />
+        </div>
         <span class="watch__time">
           <div class="triangle-up"></div>
           {{ convertimewatch(itemm,$t('TextMain.Chat.Screen.Mess.watch')) }}

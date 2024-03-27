@@ -53,7 +53,7 @@
             <h1 class="top__name" v-if="$route.query.id == null">
                 {{ authen.fullname }}
             </h1>
-            <h1 class="top__name" v-if="$route.query.id != null">
+            <h1 class="top__name" v-if="$route.query.id != null &&  data_profile($route.query.id) ">
                 {{ data_profile($route.query.id).fullname }}
             </h1>
 
@@ -64,14 +64,14 @@
                     <span  class="friend__text"  v-if="$route.query.id == null">
                         {{ $store.state.everyone.array_friend.length }}
                     </span>
-                    <span  class="friend__text" v-if="$route.query.id != null">
+                    <span  class="friend__text" v-if="$route.query.id != null && data_profile($route.query.id)">
                         {{ data_profile($route.query.id).countfriend  }}
                     </span>
                 </strong>
             </div>
 
             <!-- ACTION FRIEND -->
-            <div  class="top__setting" v-if="$route.query.action != 'my' && $route.query.id != null">
+            <div  class="top__setting" v-if="$route.query.action != 'my' && $route.query.id != null && data_profile($route.query.id)">
 
                   <!-- ADD FRIEND -->
                 <button class="top__setting--submit" @click="AddFriend(data_profile($route.query.id).id)"  
@@ -135,7 +135,7 @@
     height: 100px;
     border-radius: 50%;
     object-fit: cover;
-    background: white;
+    background: var(--coloRegular);
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
 

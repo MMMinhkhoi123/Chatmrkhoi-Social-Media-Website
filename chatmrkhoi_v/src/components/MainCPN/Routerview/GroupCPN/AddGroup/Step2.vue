@@ -148,6 +148,9 @@ export default {
 }
 </script>
 <style scoped>
+* {
+    color: var(--colorText);
+}
 .name {
     padding-top: 60px;
     display: flex;
@@ -158,8 +161,8 @@ export default {
     outline: none;
     padding: 20px;
     border-radius: 10px;
-    border: 1px solid #D9D9D9;
-    background: #FFF;
+    border: 1px solid  var(--colorLine);
+    background: var(--colorBehindLess);
     font-style: normal;
     font-weight: 500;
     line-height: normal;
@@ -180,7 +183,6 @@ span {
     background: #4F48ED;
 }
 strong {
-    color: #000;
     cursor: pointer;
     font-style: normal;
     line-height: normal;
@@ -193,7 +195,7 @@ img {
     width: 189px; 
     height: 148px;  
     border-radius: 20px;
-    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    box-shadow: var(--colorshadow) 0px 7px 29px 0px;
 }
 .img {
     display: flex;
@@ -206,8 +208,8 @@ img {
     padding: 30px;
     width: 450px;
     min-height: 500px;
-    background: white;
-    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    background: var(--coloRegular);
+    box-shadow: var(--colorshadow) 0px 7px 29px 0px;
     position: absolute;
     border-radius: 10px;
     top: 50%;

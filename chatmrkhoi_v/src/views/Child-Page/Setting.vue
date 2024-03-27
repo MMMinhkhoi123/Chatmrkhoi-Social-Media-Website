@@ -42,7 +42,7 @@
 }
 .setting__action--right,
 .setting__action--left {
-    background: white;
+    background: var(--coloRegular);
     border-radius: 10px;
 }
 

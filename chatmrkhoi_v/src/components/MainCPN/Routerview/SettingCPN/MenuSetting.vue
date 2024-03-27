@@ -32,6 +32,9 @@ import store from '../../../../store'
 </template>
 
 <style scoped>
+* {
+    color: var(--colorText);
+}
 .menu {
     height: 100%;
     overflow: hidden;
@@ -48,16 +51,14 @@ import store from '../../../../store'
     padding: 15px;
     padding-left:20px;
     margin-bottom: 10px;
-    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    box-shadow: var(--colorshadow) 0px 2px 2px 0px;
  }
 
  .menu__item:hover {
     background: var(--color1);
-    color: white;
  }
 .active {
     background: var(--color1);
-    color: white;
 }
 
 </style>

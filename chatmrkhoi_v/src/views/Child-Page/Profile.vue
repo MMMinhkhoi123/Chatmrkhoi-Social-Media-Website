@@ -35,6 +35,11 @@ import data from "../../handle/Screen_chat/index";
     
 </template> 
 <style scoped>
+
+* {
+    color: var(--colorText);
+}
+
 .profile {
     padding: 20px;
     position: relative;
@@ -50,14 +55,14 @@ import data from "../../handle/Screen_chat/index";
     gap: 10px;
     grid-template-columns: 1fr 350px;
 }
+
 .profile__action--left {
-    background: rgb(255, 255, 255);
     border-radius: 10px;
     overflow: hidden;
 }
 .profile__action--right {
     border-radius: 10px;
-    background:rgb(252, 252, 252);
+    background: var(--coloRegular);
 }
 
 
@@ -67,6 +72,7 @@ import data from "../../handle/Screen_chat/index";
     width: 30px;
     height: 30px;
 }
+
 .confirm:hover {
     background: var(--color1);
     color: white;

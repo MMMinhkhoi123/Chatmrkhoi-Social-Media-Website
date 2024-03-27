@@ -55,13 +55,14 @@ const { search } = data();
 </template>
 <style scoped>
 .filter {
-    background: white;
+    background: var(--coloRegular);
     display: flex;
     flex-direction: column;
     justify-content: end;
     position: relative;
-    border-bottom: 1px solid rgb(224, 218, 218);
+    border-bottom: 1px solid  var(--colorLine);
 }
+
 .filter__form {
     position: relative;
     display: block;
@@ -69,7 +70,7 @@ const { search } = data();
     display: flex;
     padding-left: 45px;
     padding-right: 45px;
-    border-bottom: 1px solid rgb(224, 218, 218);
+    border-bottom: 1px solid  var(--colorLine);
 }
 .filter__form--icon {
     position: absolute;
@@ -93,6 +94,7 @@ const { search } = data();
     outline: none;
     font-style: normal;
     font-weight: 500;
+    background: var(--coloRegular);
     line-height: normal;
 }
 
@@ -134,7 +136,7 @@ const { search } = data();
     right: 0;
     z-index: 4;
     top: 100%;
-    background: white;
+    background: var(--coloRegular);
     box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
 }
 .option__menu--select {
@@ -142,8 +144,9 @@ const { search } = data();
     padding: 10px 20px;
     cursor: pointer;
     text-align: center;
-    background: white;
+    background: var(--coloRegular);
 }
+
 .option__menu--select:hover {
     background: var(--color4);
     color: white;

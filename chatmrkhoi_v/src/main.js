@@ -15,5 +15,4 @@ app.use(router)
 app.use(store)
 app.component('VueCtkDateTimePicker', VueCtkDateTimePicker);
 app.component('font-awesome-icon', FontAwesomeIcon)
-
 app.mount('#app')

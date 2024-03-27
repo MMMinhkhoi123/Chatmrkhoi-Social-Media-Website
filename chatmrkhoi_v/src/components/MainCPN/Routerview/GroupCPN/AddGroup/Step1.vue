@@ -36,12 +36,18 @@ import handle from "../../../../../handle/Group/index";
 
 </template>
 <style scoped>
+* {
+    color: var(--colorText);
+}
+input {
+    background: var(--coloRegular);
+}
 .form {
     padding: 10px;
     width: 450px;
     height: 500px;
-    background: white;
-    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    background: var(--coloRegular);
+    box-shadow: var(--colorshadow) 0px 7px 29px 0px;
     position: absolute;
     border-radius: 10px;
     top: 50%;
@@ -54,9 +60,9 @@ import handle from "../../../../../handle/Group/index";
     width: 100%;
     display: flex;
     box-sizing: border-box;
-    background: #EFEEFF;
+    background: var(--colorBehindLess);
     border-radius: 10px;
-    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    box-shadow: var(--colorshadow) 0px 2px 8px 0px;
     overflow: hidden;
 }
 .form__search--icon{
@@ -71,7 +77,6 @@ import handle from "../../../../../handle/Group/index";
     border: none;
     padding-right: 30px;
     outline: none;
-    color: #000;
     font-style: normal;
     font-weight: 500;
     line-height: normal;
@@ -80,7 +85,6 @@ import handle from "../../../../../handle/Group/index";
 .form__text {
     display: block;
     margin-top: 25px;
-    color: #000;
     font-style: normal;
     font-weight: 500;
     line-height: normal;
@@ -93,7 +97,8 @@ import handle from "../../../../../handle/Group/index";
 }
 
 .form__list--item {
-    background: #F4F2F2;
+    background: var(--colorBehindLess);
+    box-shadow: var(--colorshadow) 0px 4px 15px 2px;
     border-radius: 10px;
     padding: 5px;
     display: flex;
@@ -122,7 +127,6 @@ import handle from "../../../../../handle/Group/index";
     height: 100%;
 }
 .list__frame--text {
-    color: #000;
     font-style: normal;
     font-weight: 500;
     line-height: normal;

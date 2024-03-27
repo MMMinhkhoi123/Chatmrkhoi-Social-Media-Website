@@ -60,12 +60,13 @@ import { useRouter } from "vue-router";
             </div>
 
             <div class="list__item--mutual" v-if="$store.state.everyone.chose == 5 "> Mutual friends {{item.sugg == null ? 0 : item.sugg.length }}
-              <ul v-if="item" class="item__list">
+              <ul v-if="item && data_profile(items)" class="item__list">
                  <li v-for="items in item.sugg" :key="items" class="item__list--item">
                   {{  data_profile(items).fullname }}
                 </li>
               </ul>
             </div>
+
             <!-- INFO USER -->
             <div class="list__item--infomation">
                 <span class="item__text">
@@ -108,7 +109,6 @@ import { useRouter } from "vue-router";
     position: absolute;
     top: 100%;
     background: var(--color1);
-    color: white;
     margin: 0;
     padding: 0;
     display: none;
@@ -133,12 +133,12 @@ import { useRouter } from "vue-router";
     position: relative;
     justify-content: space-between;
     width: 100%;
-    background: rgb(255, 255, 255);
+    background: var(--colorBehindLess);
     padding: 6px;
     margin-bottom: 15px;
     border-radius: 10px;
     box-sizing: border-box;
-    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    box-shadow: var(--colorshadow) 0px 4px  10px 0px;
 }
 .list__item--setting {
     display: flex;
@@ -146,7 +146,6 @@ import { useRouter } from "vue-router";
     margin-left: 15px;
 }
 .item__select {
-    color: #101010;
     font-style: normal;
     font-weight: 500;
     line-height: normal;   
@@ -162,7 +161,6 @@ import { useRouter } from "vue-router";
     gap: 24px;
 }
 .item__text {
-    color: #000;
     font-style: normal;
     font-weight: 700;
     line-height: normal;
@@ -170,7 +168,6 @@ import { useRouter } from "vue-router";
 .item__img {
     width: 60px;
     height: 60px;
-    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
     border-radius: 50%;
 }
 

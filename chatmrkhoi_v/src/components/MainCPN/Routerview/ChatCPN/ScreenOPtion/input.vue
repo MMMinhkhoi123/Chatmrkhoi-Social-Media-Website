@@ -124,7 +124,7 @@ export default {
 <style scoped>
 .form {
     flex-direction: column;
-    background: white;
+    background: var(--colorMenu);
     display: flex;
     position: absolute;
     bottom: 0;
@@ -178,7 +178,6 @@ export default {
     height: 15px;
     border-radius: 50%;
     padding: 5px;
-    color: white;
     background: rgb(209, 209, 209);
 }
 .upload__file {
@@ -189,7 +188,6 @@ export default {
     border-radius: 5px;
     gap: 10px;
     background: var(--color1);
-    color: white;
     position: relative;
 }
 
@@ -218,7 +216,7 @@ export default {
     width: 100%;
     padding: 10px;
     border-radius: 10px 10px 0px 0px;
-    background: rgb(239, 239, 239);
+    background: var(--colorBehindLess);
 } 
 .form__rep > strong {
     font-size: 16px;
@@ -233,7 +231,7 @@ export default {
 
 .form__input {
         position: relative;
-        background: rgb(255, 255, 255);
+        background: var(--colorBehindLess);
         border-radius: 10px;
         display: flex;
         align-items: center;
@@ -248,11 +246,10 @@ export default {
     outline: none;
     border: none;
     font-size: 17px;
-    border-radius: 10px;
-    color: #030303;
-    font-style: normal;
+    border-radius: 5px;
+    background: var(--colorBehindLess);
+    color: var(--colorText);
     font-weight: 500;
-    line-height: normal;
     padding-left: 60px;
     padding-right: 120px;
 }
@@ -290,7 +287,6 @@ export default {
         width: 50px;
         height: 50px;
         font-size: 20px;
-        color: white;  
         background: #4F48ED;
         border-radius: 50%;
         border: none;

@@ -78,12 +78,12 @@ import data from "../../../../../handle/Screen_chat/index";
     transition: 0.3s;
     position: fixed;
     inset: 0;
-    background: rgba(229, 229, 229, 0.612);
+    background: var(--colorHideFrom);
     z-index: 100;
     filter: blur(0px);
 }
 .feel {
-    background: white;
+    background: var(--coloRegular);
     min-width: 500px;
     overflow: hidden;
     border-radius: 10px;
@@ -93,7 +93,7 @@ import data from "../../../../../handle/Screen_chat/index";
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 111;
-    box-shadow: 0 0 19px rgba(0, 0, 0, 0.253);
+    box-shadow: 0 0 19px var(--colorshadow);
 }
 .feel__title {
     padding: 15px !important;
@@ -120,6 +120,6 @@ import data from "../../../../../handle/Screen_chat/index";
     width: 60px;
     height: 60px;
     border-radius: 50%;
-    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    box-shadow:  var(--colorshadow) 0px 7px 29px 0px;
 }
 </style>

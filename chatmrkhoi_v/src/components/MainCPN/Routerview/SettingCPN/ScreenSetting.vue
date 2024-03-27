@@ -11,6 +11,9 @@
    </div>
 </template>
 <style scoped>
+* {
+    color: var(--colorText);
+}
 .screen {
     height: 100%;
     border-radius: 10px;

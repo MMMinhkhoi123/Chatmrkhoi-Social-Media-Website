@@ -1,9 +1,11 @@
 <script setup>
 import { computed, ref } from "vue";
+import { useRouter } from "vue-router";
 import common from "../../../../../handle/Common/index";
 import store from "../../../../../store";
-const { authen} = common();
+const { authen } = common();
 const opendropdown = ref(false);
+const router = useRouter();
 const datachonse = computed(() => {
     if(opendropdown.value != opendropdown.value) {};
     return localStorage.getItem("language");
@@ -19,6 +21,31 @@ function ChangeNotify() {
         }, 500); 
 }
 
+function ChangeDarkMode() {
+    authen.value.darkMode = !authen.value.darkMode;
+    setTimeout(() => {
+            store.dispatch("chat/updatetheme",document.querySelector(".darkmode__checkbox").checked);
+        }, 200);
+    if (authen.value.darkMode == false) {
+        document.documentElement.style.setProperty('--colorMenu', '#44318D');
+        document.documentElement.style.setProperty('--colorBehind', 'rgb(196, 205, 231)');
+        document.documentElement.style.setProperty('--coloRegular', 'white');
+        document.documentElement.style.setProperty('--colorText', 'black');
+        document.documentElement.style.setProperty('--colorBehindLess', 'white');
+        document.documentElement.style.setProperty('--colorshadow', 'gray');
+        document.documentElement.style.setProperty('--colorLine', 'white');
+        document.documentElement.style.setProperty('--colorScreenChat', ' #dedfff');
+    } else {
+        document.documentElement.style.setProperty('--colorMenu', '#313b4b');
+        document.documentElement.style.setProperty('--colorBehind', '#15191d');
+        document.documentElement.style.setProperty('--coloRegular', '#212529');
+        document.documentElement.style.setProperty('--colorText', 'white');
+        document.documentElement.style.setProperty('--colorBehindLess', '#262626');
+        document.documentElement.style.setProperty('--colorshadow', '#100f0f');
+        document.documentElement.style.setProperty('--colorLine', '#6f6f6f');
+        document.documentElement.style.setProperty('--colorScreenChat', ' #3b3b3b');
+    }
+}
 </script>
 <template>
     <div class="advanted">
@@ -45,6 +72,15 @@ function ChangeNotify() {
                 <input @click.self="ChangeNotify()" class="notify__checkbox" type="checkbox" :checked="authen.notify">
                 <div class="notify__frame">
                     <span class="notify__frame--icon"></span>
+                </div>
+            </label>
+        </div>
+        <div class="advanted__darkmode">
+            <h3 class="advanted__darkmode--title">Giao diện tối</h3>
+            <label class="advanted__darkmode--checkbox">
+                <input @click="ChangeDarkMode()" class="darkmode__checkbox" type="checkbox" :checked="authen.darkMode">
+                <div class="darkmode__frame">
+                    <span class="darkmode__frame--icon"></span>
                 </div>
             </label>
         </div>
@@ -81,14 +117,22 @@ function ChangeNotify() {
     width: 40px;
     height: 40px;
 }
-.notify__frame{
+
+
+.notify__frame,
+.darkmode__frame{
     display: block;
     width: 60px;
     background: gray;
     display: flex;
     border-radius: 20px;
 }
-.notify__frame--icon {
+.darkmode__frame{ 
+    background: var(--color3);
+}
+
+.notify__frame--icon,
+.darkmode__frame--icon {
     display: block;
     width: 25px;
     height: 25px;
@@ -97,14 +141,31 @@ function ChangeNotify() {
     margin-right: auto;
     transition: 0.3s;
 }
-.advanted__notify--checkbox > input {
+
+.darkmode__frame--icon {
+    background: var(--color1);
+}
+
+.advanted__notify--checkbox > input,
+.advanted__darkmode--checkbox > input {
     display: none;
 }
 .advanted__notify--checkbox > input:checked ~ .notify__frame {
   background: rgb(211, 214, 210);
 }
+
+.advanted__darkmode--checkbox > input:checked ~ .darkmode__frame {
+ background: rgb(40, 37, 37);
+ border: 1px solid rgb(72, 69, 69);
+}
+
 .advanted__notify--checkbox > input:checked ~ div > .notify__frame--icon {
     background: rgb(121, 209, 92);
+    margin-left: auto !important;
+    margin-right: 0 !important;
+}
+.advanted__darkmode--checkbox > input:checked ~ div > .darkmode__frame--icon  {
+    background: rgb(176, 176, 176);
     margin-left: auto !important;
     margin-right: 0 !important;
 }

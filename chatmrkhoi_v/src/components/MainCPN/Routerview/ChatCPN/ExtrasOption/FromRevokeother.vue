@@ -2,27 +2,30 @@
     <div @click="$store.state.avaible_chat.unmess.status = null" class="bgwhite">
     </div>
     <div  class="fromrevoke">
-        <h3>On whose side do you want to remove this message?</h3>
+        <h3>{{ $t('TextMain.Chat.Screen.From.Revoke.Title') }}</h3>
         <div class="optio_none">
             <label class="chose">
                 <input id="one" v-model="datachonse" type="radio" name="abc" />
                 <span></span>
-                <strong>Recall with everyone</strong>
+                <strong>{{ $t('TextMain.Chat.Screen.From.Revoke.TextOption1') }}</strong>
             </label>
-            <p>This message will be revoked to everyone in the chat. Other people may have 
-                seen or forwarded the message. Recalled messages can still be reported.</p>
+            <p>{{ $t('TextMain.Chat.Screen.From.Revoke.decribe1') }}</p>
         </div>
         <div class="optio_two">
             <label class="chose">
                 <input id="two" type="radio" name="abc"/>
                 <span></span>
-                <strong>Remove on your side</strong>
+                <strong>{{ $t('TextMain.Chat.Screen.From.Revoke.TextOption2') }}</strong>
             </label>
-            <p>We'll remove this message on your side. Other people in the chat can still see it.</p>
+            <p>{{ $t('TextMain.Chat.Screen.From.Revoke.decribe2') }}</p>
         </div>
         <div class="option">
-            <button @click="$store.state.avaible_chat.unmess.status = null">Cancel</button>
-            <button @click="unmesschose">Delete, remove</button>
+            <button @click="$store.state.avaible_chat.unmess.status = null">
+                {{ $t('TextMain.Chat.Screen.From.Revoke.button1') }}
+            </button>
+            <button @click="unmesschose">
+                {{ $t('TextMain.Chat.Screen.From.Revoke.button2') }}
+            </button>
         </div>
     </div>
 </template>
@@ -117,13 +120,13 @@ h3 {
   .bgwhite {
     position: fixed;
     inset: 0;
-    background: rgba(255, 255, 255, 0.612);
+    background: var(--colorHideFrom);
     z-index: 100;
     filter: blur(20px);
   }
   .fromrevoke {
     width: 700px;
-    background: white;
+    background: var(--coloRegular);
     border-radius: 10px;
     text-align: center;
     position: fixed;
@@ -141,23 +144,22 @@ h3 {
   }
   .option > button {
     border: none;
-    color: rgb(0, 0, 0);
     width: 300px;
     height: 50px;
     transition: 0.3s;
+    background: transparent;
+    border: 1px solid var(--colorText)
   }
   .option > button:nth-child(1):hover {
     background: var(--color2);
-    color: white;
   }
   .option > button:nth-child(2) {
-    background: #ffffff;
     font-size: 15px;
     color: var(--color1);
     border: 1px solid var(--color1);
   }
   .option > button:nth-child(2):hover {
     background: var(--color1);
-    color: white;
+    color: var(--colorText);
   }
 </style>

@@ -14,10 +14,11 @@
             <span class="bottom__title">
             {{ $t('TextMain.Profile.Screen.Info.TitleGender') }}    
             </span>
-            <strong>
-                {{  $route.query.action == 'my' 
-                ? (authen.gender == "male" ? $t('TextMain.Profile.Screen.Info.GenderMale') : $t('TextMain.Profile.Screen.Info.GenderFaMale') )    
-                : (data_profile($route.query.id).gender == "male" ?  $t('TextMain.Profile.Screen.Info.GenderMale') : $t('TextMain.Profile.Screen.Info.GenderFaMale'))  }}
+            <strong v-if="data_profile($route.query.id)">
+                {{ (data_profile($route.query.id).gender == "male" ?  $t('TextMain.Profile.Screen.Info.GenderMale') : $t('TextMain.Profile.Screen.Info.GenderFaMale')) }}
+            </strong>
+            <strong v-if="$route.query.action">
+                {{  authen.gender == "male" ? $t('TextMain.Profile.Screen.Info.GenderMale') : $t('TextMain.Profile.Screen.Info.GenderFaMale')  }}
             </strong>
         </div>
 
@@ -25,10 +26,11 @@
             <span class="bottom__title"> 
                 {{ $t('TextMain.Profile.Screen.Info.Titlebirday') }}     
             </span>
-            <strong>
-                {{  $route.query.action == 'my' 
-                ? $t('TextMain.Profile.Screen.Info.birday', convertdate(authen.briday))
-                 : $t('TextMain.Profile.Screen.Info.birday',convertdate(data_profile($route.query.id).briday))  }}
+            <strong v-if="data_profile($route.query.id)">
+                {{ $t('TextMain.Profile.Screen.Info.birday',convertdate(data_profile($route.query.id).briday)) }}
+            </strong>
+            <strong v-if="$route.query.action">
+                {{  $t('TextMain.Profile.Screen.Info.birday', convertdate(authen.briday)) }}
             </strong>
         </div>
 
@@ -37,7 +39,7 @@
                 {{ $t('TextMain.Profile.Screen.Info.Desc') }}  
             </span>
             <div class="bottom__content">
-                <p class="bottom__content--text" v-if="$route.query.action != 'my'">
+                <p class="bottom__content--text" v-if="data_profile($route.query.id)">
                     {{data_profile($route.query.id).desc }}
                 </p>
                 <p class="bottom__content--text"  v-if="$route.query.action == 'my'" >
@@ -53,7 +55,7 @@
     box-sizing: border-box;
     width: 100%;
     height: calc(100% - 300px);
-    background: rgb(255, 255, 255);
+    background: var(--coloRegular);
     border-radius: 10px;
 }
 .action__bottom--gender,
@@ -64,14 +66,12 @@
     box-sizing: border-box;
     padding: 20px;
     width: 100%;
-    color: #000;
     font-weight: 500;
     border-radius: 10px;
     border: 1px solid #E8E8E8;
-    background: #FFF;
+    background: var(--coloRegular);
 }
 .bottom__title {
-    color: #000;
     font-style: normal;
     font-weight: 700;
     line-height: normal;

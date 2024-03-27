@@ -1,5 +1,4 @@
 package com.chatmrkhoi.chatmrkhoi;
-import com.chatmrkhoi.chatmrkhoi.design.Signleton.Signleton;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

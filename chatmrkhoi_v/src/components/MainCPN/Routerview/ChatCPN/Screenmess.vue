@@ -236,6 +236,7 @@
   </script>
   
   <style scoped>
+
   .form__suggest--text {
     pointer-events: none;
   }
@@ -301,8 +302,9 @@
   .screen {
     width: 100%;
     height: 100%;
-    border-radius: 10px;
-    background: #dedfff;
+    border-radius: 5px;
+    /* background: #dedfff; */
+    background: var(--colorScreenChat);
     position: relative;
     display: flex;
     flex-direction: column;

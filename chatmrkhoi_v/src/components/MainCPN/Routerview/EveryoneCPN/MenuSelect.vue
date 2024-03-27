@@ -73,7 +73,7 @@ export default {
 </script>
 <style scoped>
 .menu {
-    background: white;
+    background: var(--coloRegular);
     display: flex;
     box-sizing: border-box;
     flex-direction: column;
@@ -91,8 +91,8 @@ export default {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: #FFF;
-    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    background: var(--colorBehindLess);
+    box-shadow: var(--colorshadow) 0px 2px 2px 0px;
 }
 .menu__select:hover {
     background: var(--color1) !important;
@@ -108,7 +108,6 @@ export default {
     color: white !important;
 }
 .menu__select--text  {
-    color: #2F2929;
     font-style: normal;
     font-weight: 700;
     line-height: normal;

@@ -63,6 +63,7 @@ export default {
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
     padding: 10px;
     margin-bottom: 10px;
+    background: var(--colorBehindLess);
 }
 .list__item--frame {
     display: flex;

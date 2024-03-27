@@ -70,6 +70,11 @@ const router = createRouter({
       component: () => import("../views/Page/Main.vue"),
       children: [
         {
+          path: 'notice',
+          name: 'notice',
+          component: () => import("../views/Child-Page/Notice.vue"),
+        },
+        {
           path: 'chat',
           name: 'chat',
           component: () => import("../views/Child-Page/Chat.vue"),
@@ -113,6 +118,8 @@ function LoadData(data) {
           store.dispatch("everyone/get_data_initial_notfriend", {key:"NOT_FRIEND", token: data});
           store.dispatch("everyone/get_data_initial_sendfriendrequest", {key:"SEND_FRIEND_REQUEST", token: data });
           store.dispatch("everyone/get_data_sug_friend",data);
+          
+          store.dispatch("notice/getAllNotice", data);
           
           store.dispatch("chat/get_mygroup", data);
           store.dispatch("chat/get_array_connect", data);

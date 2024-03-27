@@ -10,6 +10,9 @@
         return userx;
     }
     function nameuserkick(item) {
+        if (!data_profile(item.group_status.split("&")[1])) {
+            return "null"
+        }
         const user =  data_profile(item.group_status.split("&")[1]).fullname.split(" ");
         const userx = user[user.length - 1]
         return userx;
@@ -17,13 +20,14 @@
 </script>
 <template>
         <div class="action__group" v-if="item.group_status != null && item != null">
-            <strong>
-                {{convert_group_status(item.group_status) == "kick" 
-                ? $t("TextMain.Chat.Screen.Mess.KickPerson", { user: nameuser(item), usernew: nameuserkick(item)  }) 
-                : convert_group_status(item.group_status) == "add" 
-                ? $t("TextMain.Chat.Screen.Mess.AddPerson", { user: nameuser(item), usernew: nameuserkick(item)  })
-                : $t("TextMain.Chat.Screen.Mess.UserOut", { user: nameuser(item) })
-                }}
+            <strong v-if="convert_group_status(item.group_status) == 'Kick'">
+                {{ $t("TextMain.Chat.Screen.Mess.KickPerson", { user: nameuser(item), usernew: nameuserkick(item)}) }}
+            </strong>
+            <strong v-if="convert_group_status(item.group_status) == 'add'" >
+                {{ $t("TextMain.Chat.Screen.Mess.AddPerson", { user: nameuser(item), usernew: nameuserkick(item)  }) }}
+            </strong>
+            <strong v-if="convert_group_status(item.group_status) != 'add' && convert_group_status(item.group_status) != 'Kick' ">
+                {{ $t("TextMain.Chat.Screen.Mess.UserOut", { user: nameuser(item) }) }}
             </strong>
         </div>
 </template>

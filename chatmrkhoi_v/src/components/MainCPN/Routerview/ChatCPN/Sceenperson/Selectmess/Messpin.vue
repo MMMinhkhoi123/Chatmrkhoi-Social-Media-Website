@@ -6,18 +6,20 @@
          <!-- Key Mess pin -->
         <div class="pin" v-if="item.pin != null">
             <span class="pin__text" v-if="handlepin(item.pin) == 'ping'">
-                {{
-                item.id_user == authen.id 
-                ? $t('TextMain.Chat.Screen.Mess.ping', { user: $t('TextMain.Chat.Screen.Mess.User') }) 
-                : $t('TextMain.Chat.Screen.Mess.ping', { user: profile_friend(item.id_user)[0].fullname })
-                }}
+                <span v-if=" item.id_user == authen.id">
+                    {{ $t('TextMain.Chat.Screen.Mess.ping', { user: $t('TextMain.Chat.Screen.Mess.User') })  }}
+                </span>
+                <span v-if=" item.id_user != authen.id && profile_friend(item.id_user).length > 0">
+                    {{ $t('TextMain.Chat.Screen.Mess.ping', { user: profile_friend(item.id_user)[0].fullname }) }}
+                </span>
             </span>
             <span class="pin__text" v-if="handlepin(item.pin) == 'unping'">
-                {{
-                item.id_user == authen.id 
-                ? $t('TextMain.Chat.Screen.Mess.unping', { user: $t('TextMain.Chat.Screen.Mess.User') }) 
-                : $t('TextMain.Chat.Screen.Mess.unping', { user: profile_friend(item.id_user)[0].fullname })
-                }}
+                <span v-if="item.id_user == authen.id ">
+                    {{ $t('TextMain.Chat.Screen.Mess.unping', { user: $t('TextMain.Chat.Screen.Mess.User') })   }}
+                </span>
+                <span  v-if="item.id_user != authen.id &&  profile_friend(item.id_user).length >0">
+                    {{ $t('TextMain.Chat.Screen.Mess.unping', { user: profile_friend(item.id_user)[0].fullname })  }}
+                </span>
             </span>
             <strong class="pin__highlight" @click="$store.state.avaible_chat.open_pin = true">
                {{ $t('TextMain.Chat.Screen.Mess.PingView') }}

@@ -72,11 +72,12 @@ this.room = this.$route.query.rom;
 }
 </script>
 <style scoped>
+
 .option {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    color: black;
+
     display: none;
     gap: 15px;
     font-size: 20px;
@@ -87,16 +88,22 @@ this.room = this.$route.query.rom;
     cursor: pointer;
 }
 
+.option__smile,
+.option__rep,
+.option__menu {
+    position: relative;
+    color: var(--colorText);
+}
+
 .menu__item:hover:not(.triangle-down) {
-    background: var(--color1); 
-    color: white;
+    background: var(--color1) !important; 
 }
 .menu__item:not(.triangle-down) {
     text-align: center;
     border-radius: 10px;
     cursor: pointer;
     padding: 10px;
-    background: white;
+    background: var(--colorBehindLess) !important;
 }
 .option__smile {
     position: relative;
@@ -109,7 +116,6 @@ this.room = this.$route.query.rom;
     position: absolute;
     z-index: 11;
     inset: 0;
-
     left: 50%;
     transform: translatex(-50%);
 }
@@ -125,8 +131,6 @@ this.room = this.$route.query.rom;
     align-items: center;
     justify-content: center;
     border-radius: 50%;
-    color: white;
-    background: rgb(245, 5, 5);
 }
 
 .triangle-down {
@@ -176,7 +180,7 @@ this.room = this.$route.query.rom;
     min-width: 150px;
     left: 50%;
     z-index: 11;
-    background: white;
+    background: var(--colorBehindLess) !important;
     border-radius: 10px;
     transform: translateX(-50%) translateY(-10px);
 }
@@ -184,7 +188,7 @@ this.room = this.$route.query.rom;
 .child_emji {
     display: flex;
     position: absolute;
-    background: rgb(255, 255, 255);
+    background: var(--colorBehindLess) !important;
     padding: 6px;
     border-radius: 30px;
 }
@@ -197,7 +201,6 @@ this.room = this.$route.query.rom;
     transform: scale(1.3);
     cursor: pointer;
 }
-
 
 
 

@@ -52,6 +52,9 @@ import store from "../../store";
     
 </template>
 <style scoped>
+* {
+    color: var(--colorText);
+}
 .chat {
     position: relative;
     padding: 20px;
@@ -67,7 +70,8 @@ import store from "../../store";
     display: flex;
     flex-direction: column;
     box-sizing: border-box;
-    background: whitesmoke;
+    /* background: whitesmoke; */
+    background: var(--coloRegular);
     position: relative;
     box-sizing: border-box;
 }

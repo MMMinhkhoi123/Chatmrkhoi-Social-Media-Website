@@ -74,7 +74,6 @@ export default {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    color: black;
     display: none;
     gap: 15px;
     font-size: 20px;
@@ -89,14 +88,13 @@ export default {
 
 .menu__item:hover:not(.triangle-down) {
     background: var(--color1); 
-    color: white;
 }
 .menu__item:not(.triangle-down) {
     text-align: center;
     border-radius: 10px;
     cursor: pointer;
     padding: 10px;
-    background: white;
+    background: var(--colorBehindLess);
 }
 
 
@@ -110,7 +108,7 @@ export default {
     min-width: 150px;
     left: 50%;
     z-index: 11;
-    background: white;
+    background: var(--colorBehindLess);
     border-radius: 10px;
     transform: translateX(-50%) translateY(-10px);
 }
@@ -125,8 +123,6 @@ export default {
     align-items: center;
     justify-content: center;
     border-radius: 50%;
-    color: white;
-    background: rgb(245, 5, 5);
 }
 .triangle-down {
     position: absolute;
@@ -159,8 +155,11 @@ export default {
     display: flex !important;
 }
 
-.option__smile {
+.option__smile,
+.option__rep,
+.option__menu {
     position: relative;
+    color: var(--colorText);
 }
 
 
@@ -180,7 +179,7 @@ export default {
 .child_emji {
     display: flex;
     position: absolute;
-    background: rgb(255, 255, 255);
+    background: var(--colorBehindLess);
     padding: 6px;
     border-radius: 30px;
 }

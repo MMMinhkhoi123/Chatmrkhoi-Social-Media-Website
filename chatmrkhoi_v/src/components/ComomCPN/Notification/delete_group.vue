@@ -42,7 +42,7 @@ const { deletegroup } = handle();
     opacity: 0;
     pointer-events: none;
     z-index: 119;
-    background: rgba(10, 10, 10, 0.568);
+    background: var(--colorHideFrom);
 }
 .noification {
     transition: 0.2s;
@@ -52,13 +52,14 @@ const { deletegroup } = handle();
     border-radius: 10px;
     width: 450px;
     z-index: 120;
-    background: white;
+    background: var(--coloRegular);
     width: 350px;
     position: fixed;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%) scale(0);
     padding: 10px;
+    color: var(--colorText);
 }
 
 .noification__img {

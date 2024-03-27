@@ -54,6 +54,7 @@ public class GroupSer implements IGroup {
 	@Autowired Common COMMON;
     @Autowired MessageConverts CONVERT;
 	@Autowired GroupConvert CONVERT_GROUP;
+	@Autowired NoticeSer noticeSer;
 	
 	@Override
 	public ResponseEntity<DataInfoGroupNewAndRoomConnectRep> save(DataAddGroupReq data) {
@@ -70,6 +71,8 @@ public class GroupSer implements IGroup {
 				.build();
 
 		GroupEn groupSaved = GROUP_REPO.save(groupNew);
+		noticeSer.save("Group", groupSaved, "AddGroup", null);
+
 
 		groupSaved.setCoderoom(groupSaved.getId() + "GR" + groupSaved.getCoderoom());
 		GROUP_REPO.save(groupSaved);
@@ -209,6 +212,7 @@ public class GroupSer implements IGroup {
 		DataMessageRep messNew = CONVERT.convertMessRep(m);
 		DataInfoUserOtherRep info = CONVERT_GROUP.ConvertData(USER_REPO.findById(data.getIdfriend()).orElseThrow(), codeOld);
 		DataMessNewAndInfoNumberRep dataRep = DataMessNewAndInfoNumberRep.builder().mess_reponse(messNew).getfriend_reponse(info).build();
+		noticeSer.save("Group", GROUP_REPO.findById(data.getId()).orElseThrow(), "AddMember", USER_REPO.findById(data.getIdfriend()).orElseThrow());
 		return ResponseEntity.ok(dataRep);
 	}
 
@@ -247,12 +251,14 @@ public class GroupSer implements IGroup {
 		MESSAGE_REPO.save(mess);
 		DataMessageRep messNew = MESSAGE_SER.CONVERT.convertMessRep(mess);
 		DataMessNewAndInfoNumberRep mata = DataMessNewAndInfoNumberRep.builder().mess_reponse(messNew).build();
+		noticeSer.save("Group", group, "KickMember", USER_REPO.findById(data.getIdfriend()).orElseThrow());
 		return ResponseEntity.ok(mata);
 	}
 
 	@Override
 	public void delete(Long id) {
 		GroupEn group = GROUP_REPO.findById(id).orElseThrow();
+		noticeSer.save("Group", group, "RemoveGroup", null);
 		group.getMess_entity().forEach((e) -> {
 			FEEL_REPO.deleteByIdMess(e.getId());
 			e.getFile_entities().forEach((ex) -> {

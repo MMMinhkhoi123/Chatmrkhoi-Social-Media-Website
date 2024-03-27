@@ -96,9 +96,11 @@ export default {
     display: flex;
     flex-direction: column;
     gap: 20px;
-    background: white;
+    background: var(--coloRegular);
+    box-shadow: var(--colorshadow) 0 0 12px;
     padding: 20px;
     position: fixed;
+    z-index: 2;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
@@ -110,7 +112,6 @@ export default {
 .edit__avata--form  {
     position: relative;
     padding: 10px;
-    color: white;
 }
 
 .avata__icon {
@@ -134,7 +135,8 @@ export default {
 .backgrond {
     position: fixed;
     inset: 0;
-    background: rgba(13, 13, 13, 0.337);
+    z-index: 1;
+    background: var(--colorHideFrom);
 }
 
 .edit__name {
@@ -148,7 +150,8 @@ export default {
     padding: 15px;
     border: none;
     outline: none;
-    background: whitesmoke;
+    background: var(--colorBehindLess);
+    border: 1px solid var(--colorLine) !important;
 }
 
 .edit__setting {
@@ -160,11 +163,14 @@ export default {
     border-radius: 10px;
     color: var(--color1);
     transition: 0.3s;
-    border: 1px solid var(--color1)
+    border: 1px solid var(--color1);
+    background: transparent;
+    cursor: pointer;
 }
-.edit__setting-- button:hover {
-    color: white;
-    background: var(--color1);
+.edit__setting--button:hover {
+    background: var(--color1) !important;
+    color: var(--colorText);
+    cursor: pointer;
 }
 
 </style>

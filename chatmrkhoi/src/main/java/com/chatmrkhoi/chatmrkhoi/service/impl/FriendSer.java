@@ -22,7 +22,6 @@ import com.chatmrkhoi.chatmrkhoi.service.IFriend;
 
 @Service
 public class FriendSer implements IFriend {
-
 	
 	@Autowired IFriendRepo FRIEND_REPO;
 	@Autowired IUserRepo USER_REPO;
@@ -34,6 +33,7 @@ public class FriendSer implements IFriend {
 	@Autowired FileSer FILE_SER;
 	@Autowired IWatchRepo WATCH_REPO;
 	@Autowired Common COMMON;
+	@Autowired NoticeSer NOTICE_SER;
 	@Override
 	public void save(Long idFriend) {
 		Long id = COMMON.getUserAuthentication().getId();
@@ -45,8 +45,11 @@ public class FriendSer implements IFriend {
 				.time(new Date().getTime())
 				.usersentities(USER_REPO.findById(id).orElseThrow())
 				.build();
-		FRIEND_REPO.save(data);
+		NOTICE_SER.save("Everyone",FRIEND_REPO.save(data),"AddFriend", null);
 	}
+
+
+
 	@Override
 	public void refuse(Long idFriend) {
 		Long id = COMMON.getUserAuthentication().getId();
@@ -72,6 +75,8 @@ public class FriendSer implements IFriend {
 			});
 			friends = FRIEND_REPO.save(data.orElseThrow());
 		}
+
+		NOTICE_SER.save("Everyone",friends,"Agree", null);
 		return ResponseEntity.ok(DataInfoRoomRep
 				.builder()
 				.coderoom(friends.getCoderoom())
@@ -102,5 +107,7 @@ public class FriendSer implements IFriend {
 		}, () -> {
 			FRIEND_REPO.deleteByUserIdAndFriendId(idFriend, id);
 		});
+
+		NOTICE_SER.save("Private",friEntity.orElseThrow(),"Unfriend", null);
 	}
 }

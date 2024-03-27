@@ -41,10 +41,10 @@ import { ref } from "vue";
 
 <style scoped>
 .filter__top {
-    background: white;
+    background: var(--coloRegular);
     padding: 10px;
     display: flex;
-    border-bottom: 1px solid rgb(224, 218, 218);
+    border-bottom: 1px solid  var(--colorLine);
 }
 .filter__top--search {
     width: 100%;
@@ -65,11 +65,13 @@ import { ref } from "vue";
     border: none;
     font-size: 16px;
     padding-left: 30px;
+    color: var(--colorText);
+    background: var(--coloRegular);
 }
 .filter__bottom {
     display: flex;
     padding: 10px;
-    border-bottom: 1px solid rgb(224, 218, 218);
+    border-bottom: 1px solid  var(--colorLine);
 }
 .filter__bottom--item {
     display: flex;
@@ -109,7 +111,7 @@ import { ref } from "vue";
 }
 .bottom__menu--item{
     padding: 10px;
-    background: white;
+    background: var(--coloRegular);
     transition: 0.3s;
 }
 .bottom__menu--item:hover {

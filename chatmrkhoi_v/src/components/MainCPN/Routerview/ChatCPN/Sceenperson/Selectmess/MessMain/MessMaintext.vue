@@ -25,7 +25,8 @@ const convertTimeText = (time, key) => {
    <div class="frame__text">
         <div class="frame__text--content">
           <!-- text reply -->
-        <div class="text__owner" v-if="item.content != '' && item.feel == null &&  authen.id != item.id_user && item.id_group != null && $store.state.everyone.array_friend && $store.state.everyone.array_not_friend &&  item.start == false &&  item.pin == null && item.group_status == null  ">
+        <div class="text__owner" v-if="item.content != '' && item.feel == null &&  authen.id != item.id_user && item.id_group != null
+         && $store.state.everyone.array_friend && $store.state.everyone.array_not_friend &&  item.start == false &&  item.pin == null && item.group_status == null && data_profile(item.id_user) ">
           <img class="text__owner--img"  v-if="data_profile(item.id_user).type_img == 'rs'" :src=" '/src/assets/images/avata_org/' +  data_profile(item.id_user).images " />
             <img  class="text__owner--img" v-if="data_profile(item.id_user).type_img == 'cpt'" :src="url_img + data_profile(item.id_user).images  " />
           </div>

@@ -51,7 +51,7 @@ const { deletegroup } = handle();
     border-radius: 10px;
     width: 450px;
     z-index: 120;
-    background: white;
+    background: var(--coloRegular);
     width: 350px;
     position: fixed;
     left: 50%;

@@ -34,6 +34,9 @@ import other from "../../../../handle/Common/index";
     </div>
 </template>
 <style scoped>
+* {
+    color: var(--colorText);
+}
 .profileother {
     width: 100%;
     height: 100%;
@@ -53,11 +56,11 @@ import other from "../../../../handle/Common/index";
     display: flex;
     justify-content: space-between;
     margin: 2px;
-    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    box-shadow: var(--colorshadow) 0px 7px 29px 0px;
     border-radius: 20px;
     overflow: hidden;
     transition: 0.3s;
-    background: white;
+    background: var(--colorBehindLess);
     margin-bottom: 5px;
 }
 .profileother__list--item:hover {
@@ -74,7 +77,7 @@ import other from "../../../../handle/Common/index";
     align-items: center;
     font-size: 20px;
     padding: 10px;
-    background: rgb(239, 246, 245);
+    background: var(--colorBehindLess);
 }
 .list__left--content {
     display: flex;

@@ -57,8 +57,14 @@
                         {{ $t('TextMain.Menu.ItemSetting') }}
                     </span>
                 </li>
+                <li class="action__item" :class="select == 6 ? 'active': ''"
+                  @click="$router.push({ name: 'notice'}),selects(6)" >
+                  <font-awesome-icon id="action__item--icon" class="action__item--icon" :icon="['fas', 'bell']" />
+                    <span id="action__text" class="action__item--text">
+                        Thông báo
+                    </span>
+                </li>
             </ul>
-            
         </div>
     </div>
 </template>

@@ -7,7 +7,8 @@ Run the command
      
     docker-compose up --build
 
-#Features
+# Features
+
 - send text,file message
 - reply message
 - revoke message
@@ -17,10 +18,14 @@ Run the command
 - Add, Kich user group
 - update information group
 - Search user
+- Add Friend, Accept, refuse request a invite
 - (Crud) Post
 - Comment Post
 - Reply comment Post
 - Like Post
 - View detail profile person
-  
+- Dark Mode
+- Change Language (vn, en)
+- Update profile
+
 # A few website pictures

@@ -12,14 +12,17 @@ Run the command
 
 # Features
 
-- send text,file message
-- reply message
-- revoke message
-- express message reactions
+- Tying message
+- Watch message
+- Show online/ofline
+- Send text,file message
+- Reply message
+- Revoke message
+- Express message reactions
 - View conversation details
 - (Crud) Group
 - Add, Kich user group
-- update information group
+- Update information group
 - Search user
 - Add Friend, Accept, refuse request a invite
 - (Crud) Post
@@ -32,7 +35,16 @@ Run the command
 - Update profile
 
 # A few website pictures
-  <img src="https://github.com/user-attachments/assets/a086b8c4-7196-49a5-a234-08b4322dff29" alt="Description" width="300"/>
+
+   <img src="https://github.com/user-attachments/assets/3b1cc460-1589-49b7-ab19-e44705380103" alt="Description" width="300"/>
+
+   <img src="https://github.com/user-attachments/assets/64243c1e-0dea-45f5-a86f-b7b4ed5e4a6c" alt="Description" width="400"/>
+
+   <img src="https://github.com/user-attachments/assets/5a1cdb68-52de-40aa-8970-f427494a43cd" alt="Description" width="400"/>
+
+   <img src="https://github.com/user-attachments/assets/69122d97-a4dd-4352-9865-7277aa845331" alt="Description" width="400"/>
+
+   <img src="https://github.com/user-attachments/assets/b1791dbc-fec0-40f5-9828-d1fd7d97e025" alt="Description" width="400"/>
 
 ## Contact
 If you have questions, please contact me via [khoinguyenminh188@gmail.com](mailto:khoinguyenminh188@gmail.com).

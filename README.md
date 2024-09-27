@@ -4,7 +4,7 @@ The site was built for the wrong purpose to create a smooth online exchange spac
 [Link My Website](http://14.225.217.107:5173)
 
 # Install with docker 
-Download file docker-compose 
+Download file docker-compose  [Here](https://drive.google.com/file/d/16ogNQeS2b2oyBzpudZlL-KLUyBVim_Up/view?usp=sharing)
 
 Run the command
      
@@ -32,3 +32,7 @@ Run the command
 - Update profile
 
 # A few website pictures
+  <img src="https://github.com/user-attachments/assets/a086b8c4-7196-49a5-a234-08b4322dff29" alt="Description" width="300"/>
+
+## Contact
+If you have questions, please contact me via [khoinguyenminh188@gmail.com](mailto:khoinguyenminh188@gmail.com).
